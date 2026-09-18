@@ -305,6 +305,14 @@ def unjobs():
 
 
 # ---------------------------------------------------------------- unjobnet.org
+DATE_ANY = r"(\d{1,2}\s+[A-Za-z]{3,9}\.?,?\s+\d{4}|[A-Za-z]{3,9}\.?\s+\d{1,2},?\s+\d{4}|\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4})"
+
+
+def find_date(label_pat, text):
+    m = re.search(label_pat + r"[^0-9A-Za-z]{0,12}(?:[A-Za-z]+day,?\s*)?" + DATE_ANY, text, re.I)
+    return norm_date(m.group(1).replace(".", "")) if m else None
+
+
 def unjobnet():
     out = []
     hdr = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"}
@@ -327,26 +335,28 @@ def unjobnet():
                 seen.add(href)
                 card = a.find_parent(["div", "li", "article"]) or a
                 text = card.get_text(" ", strip=True)
-                m = re.search(r"(?:Closing|Deadline)[^0-9]{0,15}(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4}|\d{4}-\d{2}-\d{2})", text, re.I)
                 out.append({"source": "unjobnet.org", "title": a.get_text(" ", strip=True)[:160], "org": "", "location": "", "country": "",
-                            "posted": None, "closing": norm_date(m.group(1)) if m else None, "url": href,
+                            "posted": find_date(r"(?:Posted|Published|Date posted|Updated)", text),
+                            "closing": find_date(r"(?:Closing|Deadline|Apply by|Expires?)", text), "url": href,
                             "grade": grade_of(text), "eligibility": "", "summary": text[:300]})
             time.sleep(1.5)
         except Exception as e:
             print("unjobnet failed", q, e, file=sys.stderr)
     # detail pages for dates, org and grade
-    for rec in out[:150]:
+    for n, rec in enumerate(out[:150]):
         try:
             d = requests.get(rec["url"], headers=hdr, timeout=60)
-            t = BeautifulSoup(d.text, "html.parser").get_text(" ", strip=True)
-            mp = re.search(r"(?:Posted|Published|Date posted)[^0-9]{0,15}(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4}|\d{4}-\d{2}-\d{2})", t, re.I)
-            mc = re.search(r"(?:Closing|Deadline|Apply by)[^0-9]{0,15}(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4}|\d{4}-\d{2}-\d{2})", t, re.I)
-            mo = re.search(r"Organi[sz]ation\s*[:\-]?\s*(.+?)\s+(?:Location|Country|Duty|Posted|Closing|Grade)", t)
-            ml = re.search(r"(?:Location|Duty station)\s*[:\-]?\s*(.+?)\s+(?:Organi|Posted|Closing|Grade|Contract)", t)
-            rec["posted"] = norm_date(mp.group(1)) if mp else rec["posted"]
-            rec["closing"] = norm_date(mc.group(1)) if mc else rec["closing"]
-            rec["org"] = mo.group(1).strip()[:120] if mo else rec["org"]
-            rec["location"] = ml.group(1).strip()[:80] if ml else rec["location"]
+            ds = BeautifulSoup(d.text, "html.parser")
+            main = ds.find("main") or ds.find("article") or ds.body or ds
+            t = main.get_text(" ", strip=True)
+            if n < 2:
+                print("DEBUG unjobnet detail:", repr(t[:900]), file=sys.stderr)
+            rec["posted"] = find_date(r"(?:Posted|Published|Date posted|Updated|Created)", t) or rec["posted"]
+            rec["closing"] = find_date(r"(?:Closing date|Closing|Deadline|Apply by|Application deadline|Expires?)", t) or rec["closing"]
+            mo = re.search(r"(?:Organi[sz]ation|Employer|Agency)\s*[:\-]?\s*([A-Z][^:|\n]{2,80}?)\s+(?:Location|Country|Duty|Posted|Closing|Grade|Level|Type)", t)
+            ml = re.search(r"(?:Location|Duty station|City)\s*[:\-]?\s*([A-Z][^:|\n]{2,60}?)\s+(?:Organi|Posted|Closing|Grade|Contract|Level|Type|Deadline)", t)
+            rec["org"] = mo.group(1).strip() if mo else rec["org"]
+            rec["location"] = ml.group(1).strip() if ml else rec["location"]
             rec["grade"] = grade_of(t[:6000]) or rec["grade"]
             rec["eligibility"] = eligibility_of(t[:6000])
             rec["summary"] = t[:500]
