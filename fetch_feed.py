@@ -351,15 +351,26 @@ def unjobnet():
             t = main.get_text(" ", strip=True)
             if n < 2:
                 print("DEBUG unjobnet detail:", repr(t[:900]), file=sys.stderr)
-            rec["posted"] = find_date(r"(?:Posted|Published|Date posted|Updated|Created)", t) or rec["posted"]
-            rec["closing"] = find_date(r"(?:Closing date|Closing|Deadline|Apply by|Application deadline|Expires?)", t) or rec["closing"]
-            mo = re.search(r"(?:Organi[sz]ation|Employer|Agency)\s*[:\-]?\s*([A-Z][^:|\n]{2,80}?)\s+(?:Location|Country|Duty|Posted|Closing|Grade|Level|Type)", t)
-            ml = re.search(r"(?:Location|Duty station|City)\s*[:\-]?\s*([A-Z][^:|\n]{2,60}?)\s+(?:Organi|Posted|Closing|Grade|Contract|Level|Type|Deadline)", t)
-            rec["org"] = mo.group(1).strip() if mo else rec["org"]
-            rec["location"] = ml.group(1).strip() if ml else rec["location"]
-            rec["grade"] = grade_of(t[:6000]) or rec["grade"]
-            rec["eligibility"] = eligibility_of(t[:6000])
-            rec["summary"] = t[:500]
+            # unjobnet layout: "<title> [Popular] <org> <country> ... Closes 21 Sep 2026 · 3 days ... Posted 3 days ago"
+            mc = re.search(r"Closes\s+" + DATE_ANY, t)
+            rec["closing"] = norm_date(mc.group(1)) if mc else (find_date(r"(?:Closing date|Deadline|Apply by)", t) or rec["closing"])
+            mp = re.search(r"Posted\s+(\d+)\s+(day|hour|minute|week)s?\s+ago", t)
+            if mp:
+                n_, unit = int(mp.group(1)), mp.group(2)
+                days = n_ if unit == "day" else (n_ * 7 if unit == "week" else 0)
+                rec["posted"] = (TODAY - dt.timedelta(days=days)).isoformat()
+            else:
+                rec["posted"] = find_date(r"(?:Posted|Published|Date posted)", t) or rec["posted"]
+            head = t.split("Skip to Job Description", 1)[-1][:600]
+            head = head.replace(rec["title"], "", 1).replace("Popular", "", 1).strip()
+            mo = re.match(r"(.{3,110}?)\s+(?:Staff position|Internationally Recruited|Nationally Recruited|Consultancy|Closes|Duty station|Contract)", head)
+            if mo:
+                rec["org"] = mo.group(1).strip()
+            if re.search(r"Nationally Recruited|\bNational\b\s+(?:staff|position|contract)", head):
+                rec["eligibility"] = "Nationally recruited position"
+            rec["summary"] = t.split("Job Description", 1)[-1][:500]
+            rec["grade"] = grade_of(rec["title"]) or grade_of(re.sub(r"Hardship [A-E]", "", t.split("Job Description", 1)[-1][:6000])) or rec["grade"]
+            rec["eligibility"] = rec.get("eligibility") or eligibility_of(t.split("Job Description", 1)[-1][:6000])
             time.sleep(1)
         except Exception as e:
             print("unjobnet detail failed", rec["url"], e, file=sys.stderr)
