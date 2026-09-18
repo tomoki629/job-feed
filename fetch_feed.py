@@ -72,6 +72,14 @@ def norm_date(s):
     return None
 
 
+DATE_ANY = r"(\d{1,2}\s+[A-Za-z]{3,9}\.?,?\s+\d{4}|[A-Za-z]{3,9}\.?\s+\d{1,2},?\s+\d{4}|\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4})"
+
+
+def find_date(label_pat, text):
+    m = re.search(label_pat + r"[^0-9A-Za-z]{0,12}(?:[A-Za-z]+day,?\s*)?" + DATE_ANY, text, re.I)
+    return norm_date(m.group(1).replace(".", "")) if m else None
+
+
 def relevant(rec):
     text = f"{rec.get('title','')} {rec.get('summary','')}".lower()
     if JUNIOR.search(rec.get("title", "")):
@@ -159,62 +167,96 @@ def reliefweb():
                 return out
         except Exception as e:
             print("reliefweb api failed", appname, e, file=sys.stderr)
-    # HTML fallback: the public listing pages, newest first, then each posting page for dates
-    hdr = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36",
-           "Accept": "text/html,application/xhtml+xml", "Accept-Language": "en-US,en;q=0.9"}
-    links = []
-    for page in range(0, 6):
-        try:
-            r = requests.get(f"https://reliefweb.int/jobs?page={page}", headers=hdr, timeout=60)
-            if page == 0:
-                print("DEBUG reliefweb html", r.status_code, len(r.text), repr(r.text[:160]), file=sys.stderr)
-            if r.status_code != 200:
-                break
-            soup = BeautifulSoup(r.text, "html.parser")
-            found = 0
-            for a in soup.select("article a[href*='/job/'], h3 a[href*='/job/'], a.rw-river-article__title[href], a[href*='reliefweb.int/job/']"):
-                href = a.get("href", "")
-                if href.startswith("/"):
-                    href = "https://reliefweb.int" + href
-                if "/job/" in href and href not in [l[0] for l in links]:
-                    links.append((href, a.get_text(" ", strip=True)))
-                    found += 1
-            if found == 0:
-                break
-            time.sleep(1.5)
-        except Exception as e:
-            print("reliefweb list failed", page, e, file=sys.stderr)
-            break
-    print("DEBUG reliefweb links", len(links), file=sys.stderr)
-    for href, title in links[:180]:
-        try:
-            d = requests.get(href, headers=hdr, timeout=60)
-            if d.status_code != 200:
-                continue
-            ds = BeautifulSoup(d.text, "html.parser")
-            t = ds.get_text(" ", strip=True)
-            def field(label):
-                m = re.search(label + r"\s*[:\-]?\s*(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})", t, re.I)
-                return norm_date(m.group(1)) if m else None
-            org = ""
-            mo = re.search(r"Organi[sz]ation\s*[:\-]?\s*(.+?)\s+(?:Posted|Closing date|Country|Job type)", t)
-            if mo:
-                org = mo.group(1).strip()[:120]
-            loc = ""
-            ml = re.search(r"(?:Country|Countries)\s*[:\-]?\s*(.+?)\s+(?:City|Source|Organi|Posted|Closing)", t)
-            if ml:
-                loc = ml.group(1).strip()[:80]
-            mc = re.search(r"City\s*[:\-]?\s*(.+?)\s+(?:Source|Organi|Posted|Closing|Job)", t)
-            if mc:
-                loc = (mc.group(1).strip()[:60] + ", " + loc).strip(", ")
-            body_i = t.find(title) if title in t else 0
-            out.append({"source": "ReliefWeb", "title": title or (ds.title.get_text(strip=True) if ds.title else ""), "org": org,
-                        "location": loc, "country": "", "posted": field(r"Posted"), "closing": field(r"Closing date"),
-                        "url": href, "grade": grade_of(t[body_i:body_i + 6000]), "eligibility": eligibility_of(t[body_i:body_i + 6000]),
-                        "summary": t[body_i:body_i + 500]})
-            time.sleep(1)
-        except Exception as e:
-            print("reliefweb detail failed", href, e, file=sys.stderr)
+    # Browser fallback: ReliefWeb's pages answer plain HTTP clients with a script challenge, so use headless Chromium.
+    try:
+        from playwright.sync_api import sync_playwright
+    except Exception as e:
+        print("reliefweb browser unavailable", e, file=sys.stderr)
+        return out
+    try:
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True)
+            ctx = browser.new_context(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36",
+                                      locale="en-US", viewport={"width": 1280, "height": 900})
+            page = ctx.new_page()
+            cards = []
+            for pg in range(0, 8):
+                page.goto(f"https://reliefweb.int/jobs?page={pg}", wait_until="domcontentloaded", timeout=90000)
+                try:
+                    page.wait_for_selector("article, .rw-river-article, h3 a", timeout=45000)
+                except Exception:
+                    pass
+                page.wait_for_timeout(2500)
+                if pg == 0:
+                    print("DEBUG reliefweb browser title:", page.title(), "| body len", len(page.content()), file=sys.stderr)
+                arts = page.query_selector_all("article")
+                if not arts:
+                    print("DEBUG reliefweb no articles on page", pg, "snippet:", page.inner_text("body")[:400].replace("\n", " | "), file=sys.stderr)
+                    break
+                for a in arts:
+                    try:
+                        link = a.query_selector("a[href*='/job/']")
+                        if not link:
+                            continue
+                        href = link.get_attribute("href") or ""
+                        if href.startswith("/"):
+                            href = "https://reliefweb.int" + href
+                        text = a.inner_text()
+                        cards.append((href, link.inner_text().strip(), text))
+                    except Exception:
+                        continue
+                page.wait_for_timeout(1200)
+            print("DEBUG reliefweb browser cards", len(cards), file=sys.stderr)
+            if cards:
+                print("DEBUG reliefweb card sample:", repr(cards[0][2][:400]), file=sys.stderr)
+            seen = set()
+            for href, title, text in cards:
+                if href in seen:
+                    continue
+                seen.add(href)
+                flat = re.sub(r"\s+", " ", text)
+                rec = {"source": "ReliefWeb", "title": title, "org": "", "location": "", "country": "",
+                       "posted": find_date(r"(?:Posted|Published)", flat), "closing": find_date(r"Closing date", flat),
+                       "url": href, "grade": grade_of(title), "eligibility": "", "summary": flat[:300]}
+                mo = re.search(r"(?:Organi[sz]ation|Source)[:\s]+(.+?)(?:\s+(?:Posted|Closing|Country|City|Job type)|$)", flat)
+                if mo:
+                    rec["org"] = mo.group(1).strip()[:120]
+                mc = re.search(r"(?:Country|Countries)[:\s]+(.+?)(?:\s+(?:Posted|Closing|Organi|Source|City|Job type)|$)", flat)
+                if mc:
+                    rec["country"] = mc.group(1).strip()[:80]
+                    rec["location"] = rec["country"]
+                mcity = re.search(r"City[:\s]+(.+?)(?:\s+(?:Posted|Closing|Organi|Source|Country|Job type)|$)", flat)
+                if mcity:
+                    rec["location"] = (mcity.group(1).strip()[:60] + ", " + rec["country"]).strip(", ")
+                out.append(rec)
+            # detail pages for the recent, relevant, non-junior ones: grade, eligibility, missing dates and org
+            fetched = 0
+            for rec in out:
+                if fetched >= 120:
+                    break
+                if not relevant(rec) or not current(rec) and not rec["closing"]:
+                    continue
+                try:
+                    page.goto(rec["url"], wait_until="domcontentloaded", timeout=90000)
+                    page.wait_for_timeout(1500)
+                    t = re.sub(r"\s+", " ", page.inner_text("body"))
+                    if fetched == 0:
+                        print("DEBUG reliefweb detail sample:", repr(t[:700]), file=sys.stderr)
+                    rec["closing"] = rec["closing"] or find_date(r"Closing date", t)
+                    rec["posted"] = rec["posted"] or find_date(r"(?:Posted|Published)", t)
+                    if not rec["org"]:
+                        mo = re.search(r"(?:Organi[sz]ation|Source)[:\s]+(.+?)\s+(?:Posted|Closing|Country|City|Job type)", t)
+                        rec["org"] = mo.group(1).strip()[:120] if mo else ""
+                    body = t[t.find(rec["title"]):] if rec["title"] in t else t
+                    rec["grade"] = grade_of(body[:8000]) or rec["grade"]
+                    rec["eligibility"] = eligibility_of(body[:8000])
+                    rec["summary"] = body[:500]
+                    fetched += 1
+                except Exception as e:
+                    print("reliefweb detail failed", rec["url"], e, file=sys.stderr)
+            browser.close()
+    except Exception as e:
+        print("reliefweb browser failed", e, file=sys.stderr)
     print("DEBUG reliefweb records", len(out), "with closing", sum(1 for r in out if r["closing"]), file=sys.stderr)
     return out
 
@@ -305,14 +347,6 @@ def unjobs():
 
 
 # ---------------------------------------------------------------- unjobnet.org
-DATE_ANY = r"(\d{1,2}\s+[A-Za-z]{3,9}\.?,?\s+\d{4}|[A-Za-z]{3,9}\.?\s+\d{1,2},?\s+\d{4}|\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4})"
-
-
-def find_date(label_pat, text):
-    m = re.search(label_pat + r"[^0-9A-Za-z]{0,12}(?:[A-Za-z]+day,?\s*)?" + DATE_ANY, text, re.I)
-    return norm_date(m.group(1).replace(".", "")) if m else None
-
-
 def unjobnet():
     out = []
     hdr = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"}
