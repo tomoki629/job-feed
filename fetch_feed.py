@@ -215,19 +215,16 @@ def reliefweb():
                     continue
                 seen.add(href)
                 flat = re.sub(r"\s+", " ", text)
-                rec = {"source": "ReliefWeb", "title": title, "org": "", "location": "", "country": "",
+                lines = [l.strip() for l in text.split("\n") if l.strip()]
+                card_country = ""
+                if lines and lines[0] != title and len(lines[0]) <= 40 and not lines[0].lower().startswith(("organi", "posted", "closing")):
+                    card_country = lines[0]
+                rec = {"source": "ReliefWeb", "title": title, "org": "", "location": card_country, "country": card_country,
                        "posted": find_date(r"(?:Posted|Published)", flat), "closing": find_date(r"Closing date", flat),
                        "url": href, "grade": grade_of(title), "eligibility": "", "summary": flat[:300]}
-                mo = re.search(r"(?:Organi[sz]ation|Source)[:\s]+(.+?)(?:\s+(?:Posted|Closing|Country|City|Job type)|$)", flat)
+                mo = re.search(r"Organi[sz]ation\s*(.+?)\s+(?:Posted|Closing date)", flat)
                 if mo:
                     rec["org"] = mo.group(1).strip()[:120]
-                mc = re.search(r"(?:Country|Countries)[:\s]+(.+?)(?:\s+(?:Posted|Closing|Organi|Source|City|Job type)|$)", flat)
-                if mc:
-                    rec["country"] = mc.group(1).strip()[:80]
-                    rec["location"] = rec["country"]
-                mcity = re.search(r"City[:\s]+(.+?)(?:\s+(?:Posted|Closing|Organi|Source|Country|Job type)|$)", flat)
-                if mcity:
-                    rec["location"] = (mcity.group(1).strip()[:60] + ", " + rec["country"]).strip(", ")
                 out.append(rec)
             # detail pages for the recent, relevant, non-junior ones: grade, eligibility, missing dates and org
             fetched = 0
@@ -245,11 +242,16 @@ def reliefweb():
                     rec["closing"] = rec["closing"] or find_date(r"Closing date", t)
                     rec["posted"] = rec["posted"] or find_date(r"(?:Posted|Published)", t)
                     if not rec["org"]:
-                        mo = re.search(r"(?:Organi[sz]ation|Source)[:\s]+(.+?)\s+(?:Posted|Closing|Country|City|Job type)", t)
+                        mo = re.search(r"Organi[sz]ation\s*(.+?)\s+(?:Posted|Closing date)", t)
                         rec["org"] = mo.group(1).strip()[:120] if mo else ""
+                    if not rec["country"] and rec["title"] in t:
+                        mc = re.search(r"UN OCHA\s+(.+?)\s+" + re.escape(rec["title"]), t)
+                        if mc and len(mc.group(1)) <= 60:
+                            rec["country"] = mc.group(1).strip()
+                            rec["location"] = rec["country"]
                     body = t[t.find(rec["title"]):] if rec["title"] in t else t
                     rec["grade"] = grade_of(body[:8000]) or rec["grade"]
-                    rec["eligibility"] = eligibility_of(body[:8000])
+                    rec["eligibility"] = eligibility_of(re.sub(r"\s+Posted\d.*?Closing date\s*\d+ \w+ \d{4}", " ", body[:8000]))
                     rec["summary"] = body[:500]
                     fetched += 1
                 except Exception as e:
