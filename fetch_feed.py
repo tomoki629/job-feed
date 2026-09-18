@@ -93,9 +93,31 @@ def current(rec):
     return True
 
 
+GRADE_RE = re.compile(r"\b(P[\s-]?[1-7]|D[\s-]?[12]|NO[\s-]?[A-E]|G[\s-]?[1-7]|GS[\s-]?[1-7]|IPSA[\s-]?(?:8|9|1[0-3])|NPSA[\s-]?(?:[5-9]|1[0-2])|ICS[\s-]?(?:[6-9]|1[0-3])|SB[\s-]?[1-5]|LICA[\s-]?(?:[6-9]|1[0-2])|IICA[\s-]?[1-4]|L[\s-]?[3-9]|PL[\s-]?[1-6]|EL[\s-]?[1-2]|UNV|ASG|USG)\b", re.I)
+
+
 def grade_of(text):
-    m = re.search(r"\b(P-?[3-7]|D-?[12]|NO-?[CD]|G-?7|IPSA-?1[0-2]|NPSA-?1[0-2]|SB-?[45]|L-?[6-9]|ICS-?1[0-2]|GS-?7|PL-?[1-6]|EL-?[1-2])\b", text, re.I)
-    return m.group(1).upper() if m else None
+    """Return the first professional grade found in the text, normalised (P4, D1, NO-C, IPSA-11)."""
+    if not text:
+        return None
+    m = re.search(r"(?:Grade|Level|Contract level|Job level|Post level)\s*[:\-]?\s*(" + GRADE_RE.pattern[3:-3] + r")", text, re.I)
+    if not m:
+        m = GRADE_RE.search(text)
+    if not m:
+        return None
+    g = re.sub(r"[\s-]+", "", m.group(1).upper())
+    g = re.sub(r"^(NO|IPSA|NPSA|ICS|SB|LICA|IICA|GS|PL|EL)", r"\1-", g)
+    return g
+
+
+ELIG_RE = re.compile(r"(open to [^.;\n]{0,80}|tier\s*[0-3][^.;\n]{0,60}|internal (?:candidates|applicants|staff)[^.;\n]{0,60}|only (?:nationals|citizens)[^.;\n]{0,60}|nationals? of [^.;\n]{0,60}|national (?:professional|position|personnel|post|staff)[^.;\n]{0,40}|roster[^.;\n]{0,40})", re.I)
+
+
+def eligibility_of(text):
+    if not text:
+        return ""
+    hits = [m.group(1).strip() for m in ELIG_RE.finditer(text)]
+    return "; ".join(dict.fromkeys(hits))[:300]
 
 
 # ---------------------------------------------------------------- ReliefWeb
@@ -229,10 +251,12 @@ def unjobs():
             m = re.search(r"(?:Closing date|Deadline|Apply by|Application deadline)[^0-9A-Za-z]{0,10}(?:[A-Za-z]+,?\s*)?(\d{1,2}\s+[A-Za-z]{3,9}\.?\s+\d{4}|[A-Za-z]{3,9}\.?\s+\d{1,2},?\s+\d{4}|\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4})", t, re.I)
             if m:
                 rec["closing"] = norm_date(m.group(1).replace(".", ""))
-            g = grade_of(t[:2500])
+            body = t[t.find(rec["title"]):] if rec["title"] in t else t
+            g = grade_of(body[:6000])
             if g:
                 rec["grade"] = g
-            rec["summary"] = t[t.find(rec["title"]):][:400] if rec["title"] in t else t[:400]
+            rec["eligibility"] = eligibility_of(body[:6000])
+            rec["summary"] = body[:500]
             fetched += 1
             time.sleep(1)
         except Exception as e:
@@ -299,7 +323,8 @@ def undp():
             out.append({"source": "UNDP", "title": it.get("Title", ""), "org": "UNDP",
                         "location": it.get("PrimaryLocation", ""), "country": it.get("PrimaryLocationCountry", ""),
                         "posted": norm_date(it.get("PostedDate")), "closing": norm_date(it.get("_closing")),
-                        "url": url, "grade": grade_of(it.get("Title", "") + " " + (it.get("ShortDescriptionStr") or "")),
+                        "url": url, "grade": grade_of(it.get("Title", "") + " " + (it.get("ShortDescriptionStr") or "") + " " + (it.get("ExternalQualificationsStr") or "")[:1500]),
+                        "eligibility": eligibility_of(it.get("Title", "") + " " + re.sub(r"<[^>]+>", " ", (it.get("ShortDescriptionStr") or "") + " " + (it.get("ExternalQualificationsStr") or ""))[:3000]),
                         "summary": re.sub(r"<[^>]+>", " ", it.get("ShortDescriptionStr") or "")[:400]})
     except Exception as e:
         print("undp failed", e, file=sys.stderr)
@@ -314,7 +339,11 @@ def uncareers():
         payload = {"filterConfig": {"keyword": "", "jn": [], "jc": [], "jf": [], "jl": [], "dept": [], "jo": []}, "pagination": {"page": 0, "itemPerPage": 500, "sortBy": "startDate", "sortDirection": -1}}
         r = requests.post(api, json=payload, headers={**UA, "Content-Type": "application/json"}, timeout=60)
         r.raise_for_status()
-        for it in r.json().get("data", {}).get("list", []):
+        items = r.json().get("data", {}).get("list", [])
+        if items:
+            print("DEBUG uncareers keys:", sorted(items[0].keys()), file=sys.stderr)
+            print("DEBUG uncareers sample:", {k: items[0][k] for k in items[0] if k not in ("jobDescription",)}, file=sys.stderr)
+        for it in items:
             title = txt(it.get("jobTitle"))
             loc = re.sub(r"^\d+\s+", "", txt(it.get("dutyStation")))
             loc = re.sub(r"\s+[0-9a-f]{8,}$", "", loc).title()
@@ -322,7 +351,8 @@ def uncareers():
                         "location": loc, "country": "",
                         "posted": norm_date(it.get("startDate")), "closing": norm_date(it.get("endDate")),
                         "url": f"https://careers.un.org/jobSearchDescription/{it.get('jobId')}?language=en",
-                        "grade": txt(it.get("jc")) or grade_of(title), "summary": txt(it.get("jf"))})
+                        "grade": grade_of(" ".join(txt(it.get(k)) for k in ("jobLevel", "jl", "level", "grade", "jobTitle"))) or txt(it.get("jc")),
+                        "eligibility": eligibility_of(title + " " + txt(it.get("jobDescription") or "")[:2000]), "summary": txt(it.get("jf"))})
     except Exception as e:
         print("uncareers failed", e, file=sys.stderr)
     return out
@@ -339,7 +369,7 @@ def main():
             print(fn.__name__, "failed", e, file=sys.stderr)
     seen, kept = set(), []
     for r in records:
-        for k in ("title", "org", "location", "country", "url", "summary"):
+        for k in ("title", "org", "location", "country", "url", "summary", "eligibility"):
             r[k] = txt(r.get(k))
         if r.get("grade") is not None and not isinstance(r["grade"], str):
             r["grade"] = txt(r["grade"]) or None
