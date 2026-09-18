@@ -159,24 +159,63 @@ def reliefweb():
                 return out
         except Exception as e:
             print("reliefweb api failed", appname, e, file=sys.stderr)
-    # RSS fallback: newest postings with closing date inside the description
-    try:
-        r = requests.get("https://reliefweb.int/jobs/rss.xml", headers=UA, timeout=60)
-        print("DEBUG reliefweb rss", r.status_code, len(r.text), repr(r.text[:200]), file=sys.stderr)
-        soup = BeautifulSoup(r.text, "html.parser")
-        for item in soup.find_all("item"):
-            desc = BeautifulSoup(item.description.get_text() if item.description else "", "html.parser").get_text(" ", strip=True)
-            m = re.search(r"Closing date:?\s*(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})", desc)
+    # HTML fallback: the public listing pages, newest first, then each posting page for dates
+    hdr = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36",
+           "Accept": "text/html,application/xhtml+xml", "Accept-Language": "en-US,en;q=0.9"}
+    links = []
+    for page in range(0, 6):
+        try:
+            r = requests.get(f"https://reliefweb.int/jobs?page={page}", headers=hdr, timeout=60)
+            if page == 0:
+                print("DEBUG reliefweb html", r.status_code, len(r.text), repr(r.text[:160]), file=sys.stderr)
+            if r.status_code != 200:
+                break
+            soup = BeautifulSoup(r.text, "html.parser")
+            found = 0
+            for a in soup.select("article a[href*='/job/'], h3 a[href*='/job/'], a.rw-river-article__title[href], a[href*='reliefweb.int/job/']"):
+                href = a.get("href", "")
+                if href.startswith("/"):
+                    href = "https://reliefweb.int" + href
+                if "/job/" in href and href not in [l[0] for l in links]:
+                    links.append((href, a.get_text(" ", strip=True)))
+                    found += 1
+            if found == 0:
+                break
+            time.sleep(1.5)
+        except Exception as e:
+            print("reliefweb list failed", page, e, file=sys.stderr)
+            break
+    print("DEBUG reliefweb links", len(links), file=sys.stderr)
+    for href, title in links[:180]:
+        try:
+            d = requests.get(href, headers=hdr, timeout=60)
+            if d.status_code != 200:
+                continue
+            ds = BeautifulSoup(d.text, "html.parser")
+            t = ds.get_text(" ", strip=True)
+            def field(label):
+                m = re.search(label + r"\s*[:\-]?\s*(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})", t, re.I)
+                return norm_date(m.group(1)) if m else None
             org = ""
-            mo = re.search(r"Organization:?\s*([^|]+?)(?:\s{2,}|Closing|Country|$)", desc)
+            mo = re.search(r"Organi[sz]ation\s*[:\-]?\s*(.+?)\s+(?:Posted|Closing date|Country|Job type)", t)
             if mo:
-                org = mo.group(1).strip()
-            out.append({"source": "ReliefWeb", "title": item.title.get_text(strip=True) if item.title else "", "org": org,
-                        "location": "", "country": "", "posted": norm_date(item.pubDate.get_text() if item.pubDate else None),
-                        "closing": norm_date(m.group(1)) if m else None, "url": item.link.get_text(strip=True) if item.link else "",
-                        "grade": grade_of(desc[:400]), "summary": desc[:400]})
-    except Exception as e:
-        print("reliefweb rss failed", e, file=sys.stderr)
+                org = mo.group(1).strip()[:120]
+            loc = ""
+            ml = re.search(r"(?:Country|Countries)\s*[:\-]?\s*(.+?)\s+(?:City|Source|Organi|Posted|Closing)", t)
+            if ml:
+                loc = ml.group(1).strip()[:80]
+            mc = re.search(r"City\s*[:\-]?\s*(.+?)\s+(?:Source|Organi|Posted|Closing|Job)", t)
+            if mc:
+                loc = (mc.group(1).strip()[:60] + ", " + loc).strip(", ")
+            body_i = t.find(title) if title in t else 0
+            out.append({"source": "ReliefWeb", "title": title or (ds.title.get_text(strip=True) if ds.title else ""), "org": org,
+                        "location": loc, "country": "", "posted": field(r"Posted"), "closing": field(r"Closing date"),
+                        "url": href, "grade": grade_of(t[body_i:body_i + 6000]), "eligibility": eligibility_of(t[body_i:body_i + 6000]),
+                        "summary": t[body_i:body_i + 500]})
+            time.sleep(1)
+        except Exception as e:
+            print("reliefweb detail failed", href, e, file=sys.stderr)
+    print("DEBUG reliefweb records", len(out), "with closing", sum(1 for r in out if r["closing"]), file=sys.stderr)
     return out
 
 
@@ -262,6 +301,59 @@ def unjobs():
         except Exception as e:
             print("unjobs detail failed", rec["url"], e, file=sys.stderr)
     print("DEBUG unjobs details fetched", fetched, "with closing", sum(1 for r in out if r["closing"]), file=sys.stderr)
+    return out
+
+
+# ---------------------------------------------------------------- unjobnet.org
+def unjobnet():
+    out = []
+    hdr = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"}
+    queries = ["livelihoods", "employment", "social protection", "crisis", "recovery", "resilience", "partnerships", "programme manager", "head of office", "country director", "policy"]
+    seen = set()
+    for q in queries:
+        try:
+            r = requests.get("https://www.unjobnet.org/jobs", params={"keywords": q}, headers=hdr, timeout=60)
+            if q == queries[0]:
+                print("DEBUG unjobnet", r.status_code, len(r.text), repr(r.text[:160]), file=sys.stderr)
+            if r.status_code != 200:
+                break
+            soup = BeautifulSoup(r.text, "html.parser")
+            for a in soup.select("a[href*='/jobs/detail/']"):
+                href = a.get("href", "")
+                if href.startswith("/"):
+                    href = "https://www.unjobnet.org" + href
+                if href in seen:
+                    continue
+                seen.add(href)
+                card = a.find_parent(["div", "li", "article"]) or a
+                text = card.get_text(" ", strip=True)
+                m = re.search(r"(?:Closing|Deadline)[^0-9]{0,15}(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4}|\d{4}-\d{2}-\d{2})", text, re.I)
+                out.append({"source": "unjobnet.org", "title": a.get_text(" ", strip=True)[:160], "org": "", "location": "", "country": "",
+                            "posted": None, "closing": norm_date(m.group(1)) if m else None, "url": href,
+                            "grade": grade_of(text), "eligibility": "", "summary": text[:300]})
+            time.sleep(1.5)
+        except Exception as e:
+            print("unjobnet failed", q, e, file=sys.stderr)
+    # detail pages for dates, org and grade
+    for rec in out[:150]:
+        try:
+            d = requests.get(rec["url"], headers=hdr, timeout=60)
+            t = BeautifulSoup(d.text, "html.parser").get_text(" ", strip=True)
+            mp = re.search(r"(?:Posted|Published|Date posted)[^0-9]{0,15}(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4}|\d{4}-\d{2}-\d{2})", t, re.I)
+            mc = re.search(r"(?:Closing|Deadline|Apply by)[^0-9]{0,15}(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4}|\d{4}-\d{2}-\d{2})", t, re.I)
+            mo = re.search(r"Organi[sz]ation\s*[:\-]?\s*(.+?)\s+(?:Location|Country|Duty|Posted|Closing|Grade)", t)
+            ml = re.search(r"(?:Location|Duty station)\s*[:\-]?\s*(.+?)\s+(?:Organi|Posted|Closing|Grade|Contract)", t)
+            rec["posted"] = norm_date(mp.group(1)) if mp else rec["posted"]
+            rec["closing"] = norm_date(mc.group(1)) if mc else rec["closing"]
+            rec["org"] = mo.group(1).strip()[:120] if mo else rec["org"]
+            rec["location"] = ml.group(1).strip()[:80] if ml else rec["location"]
+            rec["grade"] = grade_of(t[:6000]) or rec["grade"]
+            rec["eligibility"] = eligibility_of(t[:6000])
+            rec["summary"] = t[:500]
+            time.sleep(1)
+        except Exception as e:
+            print("unjobnet detail failed", rec["url"], e, file=sys.stderr)
+    print("DEBUG unjobnet records", len(out), "with closing", sum(1 for r in out if r["closing"]), file=sys.stderr)
     return out
 
 
@@ -360,7 +452,7 @@ def uncareers():
 
 def main():
     records = []
-    for fn in (reliefweb, unjobs, ilo, undp, uncareers):
+    for fn in (reliefweb, unjobs, unjobnet, ilo, undp, uncareers):
         try:
             got = fn()
             print(fn.__name__, len(got), file=sys.stderr)
