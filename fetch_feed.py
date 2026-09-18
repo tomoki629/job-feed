@@ -110,6 +110,8 @@ def reliefweb():
     while True:
         body["offset"] = offset
         r = requests.post("https://api.reliefweb.int/v2/jobs?appname=job-feed", json=body, headers=UA, timeout=60)
+        if r.status_code != 200:
+            print("DEBUG reliefweb", r.status_code, r.text[:600], file=sys.stderr)
         r.raise_for_status()
         data = r.json().get("data", [])
         for it in data:
@@ -161,7 +163,14 @@ def unjobs():
             if r.status_code != 200:
                 continue
             soup = BeautifulSoup(r.text, "html.parser")
-            for job in soup.select("div.job"):
+            blocks = soup.select("div.job")
+            if url == UNJOBS_PAGES[0]:
+                print("DEBUG unjobs blocks", len(blocks), file=sys.stderr)
+                for b in blocks[:3]:
+                    print("DEBUG unjobs block:", repr(b.get_text(" | ", strip=True)[:400]), file=sys.stderr)
+                if not blocks:
+                    print("DEBUG unjobs html head:", repr(r.text[:1500]), file=sys.stderr)
+            for job in blocks:
                 a = job.find("a", href=True)
                 if not a:
                     continue
@@ -197,6 +206,7 @@ def ilo():
         r = requests.get("https://jobs.ilo.org/search/?q=&sortColumn=referencedate&sortOrder=desc&startrow=0", headers=UA, timeout=45)
         soup = BeautifulSoup(r.text, "html.parser")
         rows = soup.select("tr.data-row")
+        print("DEBUG ilo rows", len(rows), "status", r.status_code, "head", repr(r.text[:300]), file=sys.stderr)
         for row in rows[:80]:
             a = row.select_one("a.jobTitle-link")
             if not a:
@@ -237,6 +247,9 @@ def undp():
         r = requests.get(api, headers=UA, timeout=60)
         r.raise_for_status()
         items = r.json().get("items", [{}])[0].get("requisitionList", [])
+        if items:
+            print("DEBUG undp keys:", sorted(items[0].keys()), file=sys.stderr)
+            print("DEBUG undp sample:", {k: items[0][k] for k in items[0] if "Date" in k or "date" in k}, file=sys.stderr)
         for it in items:
             url = f"https://estm.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/{it.get('Id')}"
             out.append({"source": "UNDP", "title": it.get("Title", ""), "org": "UNDP",
@@ -259,8 +272,10 @@ def uncareers():
         r.raise_for_status()
         for it in r.json().get("data", {}).get("list", []):
             title = txt(it.get("jobTitle"))
+            loc = re.sub(r"^\d+\s+", "", txt(it.get("dutyStation")))
+            loc = re.sub(r"\s+[0-9a-f]{8,}$", "", loc).title()
             out.append({"source": "UN Careers", "title": title, "org": txt(it.get("jn")) or "United Nations Secretariat",
-                        "location": txt(it.get("dutyStation")), "country": "",
+                        "location": loc, "country": "",
                         "posted": norm_date(it.get("startDate")), "closing": norm_date(it.get("endDate")),
                         "url": f"https://careers.un.org/jobSearchDescription/{it.get('jobId')}?language=en",
                         "grade": txt(it.get("jc")) or grade_of(title), "summary": txt(it.get("jf"))})
