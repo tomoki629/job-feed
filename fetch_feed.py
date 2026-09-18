@@ -140,8 +140,8 @@ def reliefweb():
     # RSS fallback: newest postings with closing date inside the description
     try:
         r = requests.get("https://reliefweb.int/jobs/rss.xml", headers=UA, timeout=60)
-        print("DEBUG reliefweb rss", r.status_code, len(r.text), file=sys.stderr)
-        soup = BeautifulSoup(r.text, "xml")
+        print("DEBUG reliefweb rss", r.status_code, len(r.text), repr(r.text[:200]), file=sys.stderr)
+        soup = BeautifulSoup(r.text, "html.parser")
         for item in soup.find_all("item"):
             desc = BeautifulSoup(item.description.get_text() if item.description else "", "html.parser").get_text(" ", strip=True)
             m = re.search(r"Closing date:?\s*(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})", desc)
@@ -223,9 +223,12 @@ def unjobs():
         try:
             d = requests.get(rec["url"], headers=UA, timeout=45)
             t = BeautifulSoup(d.text, "html.parser").get_text(" ", strip=True)
-            m = re.search(r"Closing date:?\s*([A-Za-z]*,?\s*\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4}|\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4})", t)
+            if fetched < 2:
+                i = t.lower().find("closing")
+                print("DEBUG unjobs detail status", d.status_code, "len", len(t), "around closing:", repr(t[max(0, i-80):i+160]) if i >= 0 else repr(t[:300]), file=sys.stderr)
+            m = re.search(r"(?:Closing date|Deadline|Apply by|Application deadline)[^0-9A-Za-z]{0,10}(?:[A-Za-z]+,?\s*)?(\d{1,2}\s+[A-Za-z]{3,9}\.?\s+\d{4}|[A-Za-z]{3,9}\.?\s+\d{1,2},?\s+\d{4}|\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4})", t, re.I)
             if m:
-                rec["closing"] = norm_date(m.group(1).split(",")[-1].strip())
+                rec["closing"] = norm_date(m.group(1).replace(".", ""))
             g = grade_of(t[:2500])
             if g:
                 rec["grade"] = g
@@ -292,17 +295,6 @@ def undp():
         for n, it in enumerate(items):
             url = f"https://estm.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/{it.get('Id')}"
             closing = it.get("PostingEndDate") or it.get("ExpirationDate")
-            if not closing:
-                try:
-                    det = requests.get("https://estm.fa.em2.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitionDetails"
-                                       f"?expand=all&onlyData=true&finder=ByRequisitionId;requisitionId={it.get('Id')},siteNumber=CX_1", headers=UA, timeout=45).json()
-                    d0 = (det.get("items") or [{}])[0]
-                    if n == 0:
-                        print("DEBUG undp detail date keys:", {k: v for k, v in d0.items() if "Date" in k or "date" in k}, file=sys.stderr)
-                    closing = d0.get("ExternalPostingEndDate") or d0.get("PostingEndDate") or d0.get("ExpirationDate")
-                    time.sleep(0.4)
-                except Exception as e:
-                    print("undp detail failed", it.get("Id"), e, file=sys.stderr)
             it["_closing"] = closing
             out.append({"source": "UNDP", "title": it.get("Title", ""), "org": "UNDP",
                         "location": it.get("PrimaryLocation", ""), "country": it.get("PrimaryLocationCountry", ""),
