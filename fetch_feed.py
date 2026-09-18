@@ -34,6 +34,22 @@ KEYWORDS = [
 JUNIOR = re.compile(r"\b(intern|internship|volunteer|UNV\b|junior|assistant|driver|clerk|secretary|G[1-7]\b|GS-?[1-7]\b|P-?[12]\b|NO-?[AB]\b|SB-?[1-3]\b)", re.I)
 
 
+def txt(v):
+    """Coerce any API value (str, dict, list, None) to a short plain string."""
+    if v is None:
+        return ""
+    if isinstance(v, str):
+        return v.strip()
+    if isinstance(v, dict):
+        for k in ("name", "value", "label", "title", "en"):
+            if k in v and isinstance(v[k], str):
+                return v[k].strip()
+        return " ".join(txt(x) for x in v.values() if isinstance(x, (str, dict, list)))[:200]
+    if isinstance(v, list):
+        return ", ".join(t for t in (txt(x) for x in v) if t)
+    return str(v)
+
+
 def norm_date(s):
     if not s:
         return None
@@ -93,7 +109,7 @@ def reliefweb():
     offset = 0
     while True:
         body["offset"] = offset
-        r = requests.post("https://api.reliefweb.int/v1/jobs?appname=job-feed", json=body, headers=UA, timeout=60)
+        r = requests.post("https://api.reliefweb.int/v2/jobs?appname=job-feed", json=body, headers=UA, timeout=60)
         r.raise_for_status()
         data = r.json().get("data", [])
         for it in data:
@@ -101,11 +117,11 @@ def reliefweb():
             out.append({
                 "source": "ReliefWeb",
                 "title": f.get("title", ""),
-                "org": ", ".join(s.get("name", "") for s in f.get("source", [])) if isinstance(f.get("source"), list) else (f.get("source", {}) or {}).get("name", ""),
-                "location": ", ".join(c.get("name", "") for c in f.get("city", [])) if f.get("city") else "",
-                "country": ", ".join(c.get("name", "") for c in f.get("country", [])) if f.get("country") else "",
-                "posted": norm_date(f.get("date", {}).get("created")),
-                "closing": norm_date(f.get("date", {}).get("closing")),
+                "org": txt(f.get("source")),
+                "location": txt(f.get("city")),
+                "country": txt(f.get("country")),
+                "posted": norm_date((f.get("date") or {}).get("created")),
+                "closing": norm_date((f.get("date") or {}).get("closing")),
                 "url": f.get("url", ""),
                 "grade": grade_of(f.get("title", "") + " " + (f.get("body") or "")[:400]),
                 "summary": re.sub(r"\s+", " ", (f.get("body") or ""))[:400],
@@ -242,11 +258,12 @@ def uncareers():
         r = requests.post(api, json=payload, headers={**UA, "Content-Type": "application/json"}, timeout=60)
         r.raise_for_status()
         for it in r.json().get("data", {}).get("list", []):
-            out.append({"source": "UN Careers", "title": it.get("jobTitle", ""), "org": it.get("jn", "") or "United Nations Secretariat",
-                        "location": it.get("dutyStation", [""])[0] if isinstance(it.get("dutyStation"), list) else str(it.get("dutyStation", "")),
-                        "country": "", "posted": norm_date(it.get("startDate")), "closing": norm_date(it.get("endDate")),
+            title = txt(it.get("jobTitle"))
+            out.append({"source": "UN Careers", "title": title, "org": txt(it.get("jn")) or "United Nations Secretariat",
+                        "location": txt(it.get("dutyStation")), "country": "",
+                        "posted": norm_date(it.get("startDate")), "closing": norm_date(it.get("endDate")),
                         "url": f"https://careers.un.org/jobSearchDescription/{it.get('jobId')}?language=en",
-                        "grade": it.get("jc", "") or grade_of(it.get("jobTitle", "")), "summary": ""})
+                        "grade": txt(it.get("jc")) or grade_of(title), "summary": txt(it.get("jf"))})
     except Exception as e:
         print("uncareers failed", e, file=sys.stderr)
     return out
@@ -263,6 +280,10 @@ def main():
             print(fn.__name__, "failed", e, file=sys.stderr)
     seen, kept = set(), []
     for r in records:
+        for k in ("title", "org", "location", "country", "url", "summary"):
+            r[k] = txt(r.get(k))
+        if r.get("grade") is not None and not isinstance(r["grade"], str):
+            r["grade"] = txt(r["grade"]) or None
         key = (r.get("title", "").lower().strip(), r.get("org", "").lower().strip())
         if key in seen or not r.get("title"):
             continue
