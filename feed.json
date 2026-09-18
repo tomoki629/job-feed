@@ -1,6 +1,6 @@
 {
- "generated": "2026-09-18T06:29:25Z",
- "count": 397,
+ "generated": "2026-09-18T06:38:15Z",
+ "count": 394,
  "jobs": [
   {
    "source": "UNDP",
@@ -45,7 +45,7 @@
    "location": "Thailand",
    "country": "",
    "posted": "2026-09-17",
-   "closing": null,
+   "closing": "2026-09-29",
    "url": "https://unjobs.org/vacancies/1789545730101",
    "grade": null,
    "summary": "Migration and Development Research Consultant, Thailand, Home Based | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Migration and Development Research Consultant, Thailand, Home Based Organization: IOM - International Organization for Migration Country: Thailand City: Bangkok Office: IOM Bangkok Job Description Open to Internal and External Candidates Position Title : Mi"
@@ -93,7 +93,7 @@
    "location": "Indonesia",
    "country": "",
    "posted": "2026-09-17",
-   "closing": null,
+   "closing": "2026-09-27",
    "url": "https://unjobs.org/vacancies/1789663380437",
    "grade": null,
    "summary": "JKT - Portfolio and Finance Manager, HEO, Jakarta, Indonesia | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon JKT - Portfolio and Finance Manager, HEO, Jakarta, Indonesia Organization: UK Foreign, Commonwealth and Development Office (FCDO) Country: Indonesia City: Jakarta Office: FCDO in Jakarta The British Government is an inclusive and diversity-friendly\nemployer. We va"
@@ -297,7 +297,7 @@
    "location": "Jordan",
    "country": "",
    "posted": "2026-09-17",
-   "closing": null,
+   "closing": "2026-09-22",
    "url": "https://unjobs.org/vacancies/1789632086250",
    "grade": null,
    "summary": "Social Protection Associate, Amman, Jordan | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Social Protection Associate, Amman Organization: UNICEF - United Nations Children's Fund Country: Jordan City: Amman Office: UNICEF MENA RO Amman General Description of assignment title: Social Protection Associate Assignment country: Jordan Duty stations: Amman Work location: On U"
@@ -597,7 +597,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-17",
-   "closing": null,
+   "closing": "2026-10-14",
    "url": "https://unjobs.org/vacancies/1789652370493",
    "grade": null,
    "summary": "Senior Health Specialist - Health Services, Washington, United States | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Senior Health Specialist - Health Services, Washington, United States Organization: World Bank Group Country: United States City: Washington Office: World Bank in Washington, United States Senior Health Specialist - Health Services Job #: req38280 Organiz"
@@ -628,6 +628,150 @@
   },
   {
    "source": "UN Careers",
+   "title": "Chemicals Legal Specialist",
+   "org": "United Nations Secretariat",
+   "location": "Nairobi",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-09-29",
+   "url": "https://careers.un.org/jobSearchDescription/284857?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "ENV Environmental Affairs"
+  },
+  {
+   "source": "UN Careers",
+   "title": "ASSOCIATE INFORMATION ANALYST, POLITICAL AFFAIRS (Temporary Job Opening)",
+   "org": "Political, Peace and Humanitarian",
+   "location": "Geneva",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-09-24",
+   "url": "https://careers.un.org/jobSearchDescription/285013?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "POL Political Affairs"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Associate Human Resources Officer",
+   "org": "Management and Administration",
+   "location": "New York",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-09-24",
+   "url": "https://careers.un.org/jobSearchDescription/283309?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "HRE Human Resources"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Associate Information Analyst (2 posts)",
+   "org": "Political, Peace and Humanitarian",
+   "location": "Geneva",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-11-01",
+   "url": "https://careers.un.org/jobSearchDescription/284271?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "POL Political Affairs"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Communications and Programme Management Consultant",
+   "org": "United Nations Secretariat",
+   "location": "Geneva",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-09-26",
+   "url": "https://careers.un.org/jobSearchDescription/284846?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": ""
+  },
+  {
+   "source": "UN Careers",
+   "title": "SUSTAINABLE DEVELOPMENT OFFICER",
+   "org": "Economic, Social and Development",
+   "location": "Santiago",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-11-01",
+   "url": "https://careers.un.org/jobSearchDescription/284907?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "SUS Sustainable Development"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Senior Project Manager",
+   "org": "United Nations Secretariat",
+   "location": "Bangkok",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-10-12",
+   "url": "https://careers.un.org/jobSearchDescription/285007?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "ECO Economic Affairs"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Environmental Law and Governance Specialist",
+   "org": "United Nations Secretariat",
+   "location": "Paris",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-10-01",
+   "url": "https://careers.un.org/jobSearchDescription/284230?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "ENV Environmental Affairs"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Urban and Territorial Planning Specialist",
+   "org": "United Nations Secretariat",
+   "location": "Bogota",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-09-24",
+   "url": "https://careers.un.org/jobSearchDescription/285056?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "HST HST"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Chief, Climate Change Section",
+   "org": "Logistics, Transportation and Supply Chain",
+   "location": "Montreal",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-10-19",
+   "url": "https://careers.un.org/jobSearchDescription/285001?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "AVI Aviation"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Consultancy - Specialist in Ecosystems Restoration in Saint Lucia",
+   "org": "United Nations Secretariat",
+   "location": "Nairobi",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-09-29",
+   "url": "https://careers.un.org/jobSearchDescription/284601?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "ENV Environmental Affairs"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Public Information Officer (Publishing Officer)",
+   "org": "Public Information and Conference Management",
+   "location": "Addis Ababa",
+   "country": "",
+   "posted": "2026-09-17",
+   "closing": "2026-10-17",
+   "url": "https://careers.un.org/jobSearchDescription/280814?language=en",
+   "grade": "National Professional Officers",
+   "summary": "PUB Public Information"
+  },
+  {
+   "source": "UN Careers",
    "title": "PROGRAMME MANAGEMENT OFFICER",
    "org": "Economic, Social and Development",
    "location": "Geneva",
@@ -652,158 +796,26 @@
   },
   {
    "source": "UN Careers",
-   "title": "Public Information Officer (Publishing Officer)",
+   "title": "ASSOCIATE DATA SPECIALIST",
    "org": "Public Information and Conference Management",
-   "location": "Addis Ababa",
+   "location": "Montevideo",
    "country": "",
    "posted": "2026-09-17",
-   "closing": "2026-10-17",
-   "url": "https://careers.un.org/jobSearchDescription/280814?language=en",
+   "closing": "2026-10-02",
+   "url": "https://careers.un.org/jobSearchDescription/284393?language=en",
    "grade": "National Professional Officers",
-   "summary": "PUB Public Information"
+   "summary": "DAM Data Analytics and Management"
   },
   {
    "source": "UN Careers",
-   "title": "Environmental Law and Governance Specialist",
-   "org": "United Nations Secretariat",
-   "location": "Paris",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-10-01",
-   "url": "https://careers.un.org/jobSearchDescription/284234?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "ENV Environmental Affairs"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Urban and Territorial Planning Specialist",
-   "org": "United Nations Secretariat",
-   "location": "Bogota",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-09-24",
-   "url": "https://careers.un.org/jobSearchDescription/285056?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "HST HST"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Consultancy - Specialist in Ecosystems Restoration in Saint Lucia",
-   "org": "United Nations Secretariat",
-   "location": "Nairobi",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-09-29",
-   "url": "https://careers.un.org/jobSearchDescription/284601?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "ENV Environmental Affairs"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Chief, Climate Change Section",
-   "org": "Logistics, Transportation and Supply Chain",
-   "location": "Montreal",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-10-19",
-   "url": "https://careers.un.org/jobSearchDescription/285001?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "AVI Aviation"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Programme Management Officer (Deputy Chief of Mine Action Programme)",
-   "org": "Economic, Social and Development",
-   "location": "Jerusalem",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-10-17",
-   "url": "https://careers.un.org/jobSearchDescription/281376?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "PGM Programme Management"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Associate Human Resources Officer",
-   "org": "Management and Administration",
-   "location": "New York",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-09-24",
-   "url": "https://careers.un.org/jobSearchDescription/283309?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "HRE Human Resources"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Chemicals Legal Specialist",
-   "org": "United Nations Secretariat",
-   "location": "Nairobi",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-09-29",
-   "url": "https://careers.un.org/jobSearchDescription/284857?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "ENV Environmental Affairs"
-  },
-  {
-   "source": "UN Careers",
-   "title": "SUSTAINABLE DEVELOPMENT OFFICER",
+   "title": "SENIOR ECONOMIC AFFAIRS OFFICER",
    "org": "Economic, Social and Development",
    "location": "Santiago",
    "country": "",
    "posted": "2026-09-17",
    "closing": "2026-11-01",
-   "url": "https://careers.un.org/jobSearchDescription/284907?language=en",
+   "url": "https://careers.un.org/jobSearchDescription/283588?language=en",
    "grade": "Professional and Higher Categories",
-   "summary": "SUS Sustainable Development"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Communications and Programme Management Consultant",
-   "org": "United Nations Secretariat",
-   "location": "Geneva",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-09-26",
-   "url": "https://careers.un.org/jobSearchDescription/284846?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": ""
-  },
-  {
-   "source": "UN Careers",
-   "title": "Associate Information Analyst (2 posts)",
-   "org": "Political, Peace and Humanitarian",
-   "location": "Geneva",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-11-01",
-   "url": "https://careers.un.org/jobSearchDescription/284271?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "POL Political Affairs"
-  },
-  {
-   "source": "UN Careers",
-   "title": "ASSOCIATE INFORMATION ANALYST, POLITICAL AFFAIRS (Temporary Job Opening)",
-   "org": "Political, Peace and Humanitarian",
-   "location": "Geneva",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-09-24",
-   "url": "https://careers.un.org/jobSearchDescription/285013?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "POL Political Affairs"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Senior Project Manager",
-   "org": "United Nations Secretariat",
-   "location": "Bangkok",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-10-12",
-   "url": "https://careers.un.org/jobSearchDescription/285007?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
    "summary": "ECO Economic Affairs"
   },
   {
@@ -820,27 +832,15 @@
   },
   {
    "source": "UN Careers",
-   "title": "SENIOR ECONOMIC AFFAIRS OFFICER",
+   "title": "Programme Management Officer (Deputy Chief of Mine Action Programme)",
    "org": "Economic, Social and Development",
-   "location": "Santiago",
+   "location": "Jerusalem",
    "country": "",
    "posted": "2026-09-17",
-   "closing": "2026-11-01",
-   "url": "https://careers.un.org/jobSearchDescription/283588?language=en",
+   "closing": "2026-10-17",
+   "url": "https://careers.un.org/jobSearchDescription/281376?language=en",
    "grade": "Professional and Higher Categories",
-   "summary": "ECO Economic Affairs"
-  },
-  {
-   "source": "UN Careers",
-   "title": "ASSOCIATE DATA SPECIALIST",
-   "org": "Public Information and Conference Management",
-   "location": "Montevideo",
-   "country": "",
-   "posted": "2026-09-17",
-   "closing": "2026-10-02",
-   "url": "https://careers.un.org/jobSearchDescription/284393?language=en",
-   "grade": "National Professional Officers",
-   "summary": "DAM Data Analytics and Management"
+   "summary": "PGM Programme Management"
   },
   {
    "source": "unjobs.org",
@@ -921,7 +921,7 @@
    "location": "Philippines",
    "country": "",
    "posted": "2026-09-16",
-   "closing": null,
+   "closing": "2026-09-18",
    "url": "https://unjobs.org/vacancies/1789473595833",
    "grade": null,
    "summary": "IDLO Vacancy: Legal Feminism in Jurisprudence Researcher, Manila, Philippines | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Legal Feminism in Jurisprudence Researcher, Manila Organization: International Development Law Organization (IDLO) Country: Philippines City: Manila Office: IDLO Manila, Philippines Overview & Responsibilities The International Development Law Org"
@@ -933,7 +933,7 @@
    "location": "Indonesia",
    "country": "",
    "posted": "2026-09-16",
-   "closing": null,
+   "closing": "2026-09-25",
    "url": "https://unjobs.org/vacancies/1789480432220",
    "grade": null,
    "summary": "Project Officer, North Sumatra, Indonesia | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Project Officer, North Sumatra, Indonesia Organization: Fred Hollows Foundation Country: Indonesia City: Jakarta Office: Fred Hollows Foundation in Jakarta Do you want to do work that really matters? Help us end avoidable blindness. Full time role based in North Sumatra, Indonesia C"
@@ -1293,7 +1293,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-16",
-   "closing": null,
+   "closing": "2026-09-29",
    "url": "https://unjobs.org/vacancies/1789565743530",
    "grade": null,
    "summary": "Engagement Analyst, Washington, United States | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Engagement Analyst, Washington, United States Organization: World Bank Group Country: United States City: Washington Office: World Bank in Washington, United States Engagement Analyst Job #: req38330 Organization: World Bank Group Sector: Climate Change Grade: GE Term Duration:"
@@ -1305,34 +1305,10 @@
    "location": "",
    "country": "",
    "posted": "2026-09-16",
-   "closing": null,
+   "closing": "2026-09-30",
    "url": "https://unjobs.org/vacancies/1789565772904",
    "grade": null,
    "summary": "Senior Digital Specialist, Islamabad, Pakistan | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Senior Digital Specialist, Islamabad, Pakistan Organization: World Bank Group Country: Pakistan City: Islamabad Office: World Bank in Islamabad, Pakistan Senior Digital Specialist Job #: req38323 Organization: World Bank Group Sector: Digital Development Grade: GG Term Duration"
-  },
-  {
-   "source": "unjobs.org",
-   "title": "Senior Industry Specialist - Clean Technology Products (Battery & Rare Earth Minerals Manufacturing), Washington, United States",
-   "org": "World Bank Group",
-   "location": "",
-   "country": "",
-   "posted": "2026-09-16",
-   "closing": null,
-   "url": "https://unjobs.org/vacancies/1789565800840",
-   "grade": null,
-   "summary": "Senior Industry Specialist - Clean Technology Products (Battery & Rare Earth Minerals Manufacturing), Washington, United States | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Senior Industry Specialist - Clean Technology Products (Battery & Rare Earth Minerals Manufacturing), Washington, United States Organization: World Bank Group Country: United States City: Washingto"
-  },
-  {
-   "source": "unjobs.org",
-   "title": "Senior Investment Officer - Chemicals and Fertilizer Sector Lead, Washington, United States",
-   "org": "World Bank Group",
-   "location": "",
-   "country": "",
-   "posted": "2026-09-16",
-   "closing": null,
-   "url": "https://unjobs.org/vacancies/1789565814455",
-   "grade": null,
-   "summary": "Senior Investment Officer - Chemicals and Fertilizer Sector Lead, Washington, United States | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Senior Investment Officer - Chemicals and Fertilizer Sector Lead, Washington, United States Organization: World Bank Group Country: United States City: Washington Office: World Bank in Washington, United States Senior Investment Offi"
   },
   {
    "source": "UNDP",
@@ -1396,54 +1372,6 @@
   },
   {
    "source": "UN Careers",
-   "title": "Vendor & Procurement Specialist",
-   "org": "United Nations Secretariat",
-   "location": "New York",
-   "country": "",
-   "posted": "2026-09-16",
-   "closing": "2026-09-30",
-   "url": "https://careers.un.org/jobSearchDescription/280362?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "PRO Procurement"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Human Resources Officer",
-   "org": "Management and Administration",
-   "location": "New York",
-   "country": "",
-   "posted": "2026-09-16",
-   "closing": "2026-10-31",
-   "url": "https://careers.un.org/jobSearchDescription/281459?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "HRE Human Resources"
-  },
-  {
-   "source": "UN Careers",
-   "title": "DATA SPECIALIST",
-   "org": "Public Information and Conference Management",
-   "location": "Ouagadougou",
-   "country": "",
-   "posted": "2026-09-16",
-   "closing": "2026-10-01",
-   "url": "https://careers.un.org/jobSearchDescription/282711?language=en",
-   "grade": "National Professional Officers",
-   "summary": "DAM Data Analytics and Management"
-  },
-  {
-   "source": "UN Careers",
-   "title": "CLOSE PROTECTION OFFICER",
-   "org": "Internal Security and Safety",
-   "location": "Bogota",
-   "country": "",
-   "posted": "2026-09-16",
-   "closing": "2026-09-30",
-   "url": "https://careers.un.org/jobSearchDescription/284989?language=en",
-   "grade": "Field Service",
-   "summary": "SEC Security"
-  },
-  {
-   "source": "UN Careers",
    "title": "Consultancy on macroeconomic policy enablers for improving female employment in the Arab region",
    "org": "United Nations Secretariat",
    "location": "Beirut",
@@ -1456,39 +1384,27 @@
   },
   {
    "source": "UN Careers",
-   "title": "Research and Project Consultant – Time for Growth Policy Resource Portal",
+   "title": "Vendor & Procurement Specialist",
    "org": "United Nations Secretariat",
-   "location": "Addis Ababa",
+   "location": "New York",
    "country": "",
    "posted": "2026-09-16",
-   "closing": "2026-10-16",
-   "url": "https://careers.un.org/jobSearchDescription/283207?language=en",
+   "closing": "2026-09-30",
+   "url": "https://careers.un.org/jobSearchDescription/280362?language=en",
    "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "PGM Programme Management"
+   "summary": "PRO Procurement"
   },
   {
    "source": "UN Careers",
-   "title": "External Relations Officer (Donor Relations Officer)",
-   "org": "Public Information and Conference Management",
-   "location": "Geneva",
-   "country": "",
-   "posted": "2026-09-16",
-   "closing": "2026-10-16",
-   "url": "https://careers.un.org/jobSearchDescription/283977?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "PUB Public Information"
-  },
-  {
-   "source": "UN Careers",
-   "title": "CHIEF OF SECTION, SUPPLY",
-   "org": "Logistics, Transportation and Supply Chain",
-   "location": "249F Unifil-Naqoura",
+   "title": "HUMAN RESOURCES OFFICER",
+   "org": "Management and Administration",
+   "location": "Naqoura",
    "country": "",
    "posted": "2026-09-16",
    "closing": "2026-09-23",
-   "url": "https://careers.un.org/jobSearchDescription/284949?language=en",
+   "url": "https://careers.un.org/jobSearchDescription/284912?language=en",
    "grade": "Professional and Higher Categories",
-   "summary": "LOG Logistics and Supply Chain"
+   "summary": "HRE Human Resources"
   },
   {
    "source": "UN Careers",
@@ -1513,6 +1429,66 @@
    "url": "https://careers.un.org/jobSearchDescription/282447?language=en",
    "grade": "Professional and Higher Categories",
    "summary": "PGM Programme Management"
+  },
+  {
+   "source": "UN Careers",
+   "title": "DATA SPECIALIST",
+   "org": "Public Information and Conference Management",
+   "location": "Ouagadougou",
+   "country": "",
+   "posted": "2026-09-16",
+   "closing": "2026-10-01",
+   "url": "https://careers.un.org/jobSearchDescription/282711?language=en",
+   "grade": "National Professional Officers",
+   "summary": "DAM Data Analytics and Management"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Research and Project Consultant – Time for Growth Policy Resource Portal",
+   "org": "United Nations Secretariat",
+   "location": "Addis Ababa",
+   "country": "",
+   "posted": "2026-09-16",
+   "closing": "2026-10-16",
+   "url": "https://careers.un.org/jobSearchDescription/283207?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "PGM Programme Management"
+  },
+  {
+   "source": "UN Careers",
+   "title": "CLOSE PROTECTION OFFICER",
+   "org": "Internal Security and Safety",
+   "location": "Bogota",
+   "country": "",
+   "posted": "2026-09-16",
+   "closing": "2026-09-30",
+   "url": "https://careers.un.org/jobSearchDescription/284989?language=en",
+   "grade": "Field Service",
+   "summary": "SEC Security"
+  },
+  {
+   "source": "UN Careers",
+   "title": "External Relations Officer (Donor Relations Officer)",
+   "org": "Public Information and Conference Management",
+   "location": "Geneva",
+   "country": "",
+   "posted": "2026-09-16",
+   "closing": "2026-10-16",
+   "url": "https://careers.un.org/jobSearchDescription/283977?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "PUB Public Information"
+  },
+  {
+   "source": "UN Careers",
+   "title": "CHIEF OF SECTION, SUPPLY",
+   "org": "Logistics, Transportation and Supply Chain",
+   "location": "249F Unifil-Naqoura",
+   "country": "",
+   "posted": "2026-09-16",
+   "closing": "2026-09-23",
+   "url": "https://careers.un.org/jobSearchDescription/284949?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "LOG Logistics and Supply Chain"
   },
   {
    "source": "unjobs.org",
@@ -1557,7 +1533,7 @@
    "location": "Philippines",
    "country": "",
    "posted": "2026-09-15",
-   "closing": null,
+   "closing": "2026-09-29",
    "url": "https://unjobs.org/vacancies/1789483859701",
    "grade": null,
    "summary": "Project Analyst (Development Effectiveness), Manila, Philippines | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Project Analyst (Development Effectiveness), Manila, Philippines Organization: ADB - Asian Development Bank Country: Philippines City: Manila Office: ADB HQ Manila Reference Number : 260902 Position Grade : TL3 Department : Private Sector Operations Department"
@@ -1581,7 +1557,7 @@
    "location": "Philippines",
    "country": "",
    "posted": "2026-09-15",
-   "closing": null,
+   "closing": "2026-10-02",
    "url": "https://unjobs.org/vacancies/1789384139215",
    "grade": null,
    "summary": "IOM Vacancy: National Project Officer | Emergency Response | Roster only, Philippines | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon National Project Officer | Emergency Response | Roster only, Philippines Organization: IOM - International Organization for Migration Country: Philippines City: Manila Office: IOM Manila Job Description Introduction Established in 1951, IO"
@@ -1593,7 +1569,7 @@
    "location": "Indonesia",
    "country": "",
    "posted": "2026-09-15",
-   "closing": null,
+   "closing": "2026-10-02",
    "url": "https://unjobs.org/vacancies/1789476648055",
    "grade": null,
    "summary": "Country Launch Manager, Indonesia, Hybrid, Home Based, Jakarta | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Country Launch Manager, Indonesia, Hybrid, Home Based, Jakarta Organization: Precision Development Country: Indonesia City: Jakarta Office: Precision Development in Jakarta Title: Country Launch Manager, Indonesia Location and Work Authorization: Indonesia, Jaka"
@@ -1956,7 +1932,7 @@
    "closing": null,
    "url": "https://unjobs.org/vacancies/1789125277104",
    "grade": null,
-   "summary": "Programme Associate (Child Protection),  Ankara, Türkiye Organization: UNICEF - United Nations Children's Fund Country: Turkey City: Ankara Office: UNICEF Ankara, Turkey Grade: G-6 Programme Associate (Child Protection), G-6, Temporary Position, Republic of Türkiye, 6 months, Ankara, Republic of Türkiye, #00138345 Job no: 595672 Position type: Temporary Appointment Location: Türkiye Division/Equiv"
+   "summary": "Programme Associate (Child Protection),  Ankara, Türkiye, Turkey | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Programme Associate (Child Protection),  Ankara, Türkiye Organization: UNICEF - United Nations Children's Fund Country: Turkey City: Ankara Office: UNICEF Ankara, Turkey Grade: G-6 Programme Associate (Child Protection), G-6, Temporary Position, Republic of Tü"
   },
   {
    "source": "unjobs.org",
@@ -1977,7 +1953,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-15",
-   "closing": null,
+   "closing": "2026-10-03",
    "url": "https://unjobs.org/vacancies/1789479534197",
    "grade": null,
    "summary": "Enterprise Adviser, Dhaka, Bangladesh | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Enterprise Adviser, Dhaka, Bangladesh Organization: ILO - International Labour Organization Country: Bangladesh City: Dhaka Office: ILO Dhaka, Bangladesh Grade: NO-A Job Description Enterprise Adviser Grade: NO-A Vacancy no.: DC/Dhaka/BW/NO/2026/03 Publication date: 15/09/2026 Applicati"
@@ -2145,7 +2121,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-15",
-   "closing": null,
+   "closing": "2026-09-25",
    "url": "https://unjobs.org/vacancies/1789079361846",
    "grade": null,
    "summary": "Sustainable Solutions Officer, Bhutan Resident Mission | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Sustainable Solutions Officer, Bhutan Resident Mission Organization: ADB - Asian Development Bank Country: Bhutan City: Thimphu Office: ADB Thimphu, Bhutan Reference Number : 260861 Position Grade : TL5 Department : South Asia Department Division : Bhutan Resident Missi"
@@ -2200,6 +2176,66 @@
   },
   {
    "source": "UN Careers",
+   "title": "Individual Contractor on the Promotion and Protection of the Right to Peaceful Assembly",
+   "org": "United Nations Secretariat",
+   "location": "Ken - Other",
+   "country": "",
+   "posted": "2026-09-15",
+   "closing": "2026-09-22",
+   "url": "https://careers.un.org/jobSearchDescription/284488?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "HRI Human Rights Affairs"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Coordination Officer, Political Affairs",
+   "org": "Political, Peace and Humanitarian",
+   "location": "Gaza",
+   "country": "",
+   "posted": "2026-09-15",
+   "closing": "2026-10-01",
+   "url": "https://careers.un.org/jobSearchDescription/284750?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "POL Political Affairs"
+  },
+  {
+   "source": "UN Careers",
+   "title": "ASSOCIATE COMMUNICATIONS OFFICER",
+   "org": "Public Information and Conference Management",
+   "location": "Caracas",
+   "country": "",
+   "posted": "2026-09-15",
+   "closing": "2026-09-30",
+   "url": "https://careers.un.org/jobSearchDescription/284132?language=en",
+   "grade": "National Professional Officers",
+   "summary": "PUB Public Information"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Administrative Officer",
+   "org": "Management and Administration",
+   "location": "New York",
+   "country": "",
+   "posted": "2026-09-15",
+   "closing": "2026-09-22",
+   "url": "https://careers.un.org/jobSearchDescription/284000?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "ADM Administration"
+  },
+  {
+   "source": "UN Careers",
+   "title": "PARTNERSHIPS OFFICER",
+   "org": "Economic, Social and Development",
+   "location": "Chisinau",
+   "country": "",
+   "posted": "2026-09-15",
+   "closing": "2026-10-01",
+   "url": "https://careers.un.org/jobSearchDescription/282605?language=en",
+   "grade": "National Professional Officers",
+   "summary": "SUS Sustainable Development"
+  },
+  {
+   "source": "UN Careers",
    "title": "Senior Advisor",
    "org": "United Nations Secretariat",
    "location": "Arg - Other Cities",
@@ -2207,6 +2243,30 @@
    "posted": "2026-09-15",
    "closing": "2026-09-22",
    "url": "https://careers.un.org/jobSearchDescription/284888?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "HST HST"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Risk management specialist",
+   "org": "United Nations Secretariat",
+   "location": "Bogota",
+   "country": "",
+   "posted": "2026-09-15",
+   "closing": "2026-09-22",
+   "url": "https://careers.un.org/jobSearchDescription/284813?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "HST HST"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Urban Planning Analyst Consultant",
+   "org": "United Nations Secretariat",
+   "location": "Lima",
+   "country": "",
+   "posted": "2026-09-15",
+   "closing": "2026-09-22",
+   "url": "https://careers.un.org/jobSearchDescription/284897?language=en",
    "grade": "Affiliate Personnel – Consultants/Individual Contractors",
    "summary": "HST HST"
   },
@@ -2245,90 +2305,6 @@
    "url": "https://careers.un.org/jobSearchDescription/284721?language=en",
    "grade": "Professional and Higher Categories",
    "summary": "POL Political Affairs"
-  },
-  {
-   "source": "UN Careers",
-   "title": "ADMINISTRATIVE OFFICER",
-   "org": "Management and Administration",
-   "location": "Kyiv",
-   "country": "",
-   "posted": "2026-09-15",
-   "closing": "2026-10-15",
-   "url": "https://careers.un.org/jobSearchDescription/284398?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "ADM Administration"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Individual Contractor on the Promotion and Protection of the Right to Peaceful Assembly",
-   "org": "United Nations Secretariat",
-   "location": "Ken - Other",
-   "country": "",
-   "posted": "2026-09-15",
-   "closing": "2026-09-22",
-   "url": "https://careers.un.org/jobSearchDescription/284488?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "HRI Human Rights Affairs"
-  },
-  {
-   "source": "UN Careers",
-   "title": "PARTNERSHIPS OFFICER",
-   "org": "Economic, Social and Development",
-   "location": "Chisinau",
-   "country": "",
-   "posted": "2026-09-15",
-   "closing": "2026-10-01",
-   "url": "https://careers.un.org/jobSearchDescription/282605?language=en",
-   "grade": "National Professional Officers",
-   "summary": "SUS Sustainable Development"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Urban Planning Analyst Consultant",
-   "org": "United Nations Secretariat",
-   "location": "Lima",
-   "country": "",
-   "posted": "2026-09-15",
-   "closing": "2026-09-22",
-   "url": "https://careers.un.org/jobSearchDescription/284897?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "HST HST"
-  },
-  {
-   "source": "UN Careers",
-   "title": "ASSOCIATE COMMUNICATIONS OFFICER",
-   "org": "Public Information and Conference Management",
-   "location": "Caracas",
-   "country": "",
-   "posted": "2026-09-15",
-   "closing": "2026-09-30",
-   "url": "https://careers.un.org/jobSearchDescription/284132?language=en",
-   "grade": "National Professional Officers",
-   "summary": "PUB Public Information"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Coordination Officer, Political Affairs",
-   "org": "Political, Peace and Humanitarian",
-   "location": "Gaza",
-   "country": "",
-   "posted": "2026-09-15",
-   "closing": "2026-10-01",
-   "url": "https://careers.un.org/jobSearchDescription/284750?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "POL Political Affairs"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Risk management specialist",
-   "org": "United Nations Secretariat",
-   "location": "Bogota",
-   "country": "",
-   "posted": "2026-09-15",
-   "closing": "2026-09-22",
-   "url": "https://careers.un.org/jobSearchDescription/284813?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "HST HST"
   },
   {
    "source": "unjobs.org",
@@ -2500,6 +2476,18 @@
   },
   {
    "source": "UN Careers",
+   "title": "SENIOR PROGRAMME MANAGEMENT OFFICER, ADMINISTRATION",
+   "org": "Management and Administration",
+   "location": "New York",
+   "country": "",
+   "posted": "2026-09-14",
+   "closing": "2026-10-14",
+   "url": "https://careers.un.org/jobSearchDescription/280802?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "ADM Administration"
+  },
+  {
+   "source": "UN Careers",
    "title": "Senior Urban Programme Development Specialist",
    "org": "United Nations Secretariat",
    "location": "Nairobi",
@@ -2524,26 +2512,38 @@
   },
   {
    "source": "UN Careers",
-   "title": "DEPUTY CHIEF SECURITY OFFICER",
-   "org": "Internal Security and Safety",
-   "location": "Port-Au-Prince",
+   "title": "Urban Policy and Implementation Specialist",
+   "org": "United Nations Secretariat",
+   "location": "Rio De Janeiro",
    "country": "",
    "posted": "2026-09-14",
-   "closing": "2026-09-29",
-   "url": "https://careers.un.org/jobSearchDescription/284722?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "SEC Security"
+   "closing": "2026-09-22",
+   "url": "https://careers.un.org/jobSearchDescription/284794?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "HST HST"
   },
   {
    "source": "UN Careers",
-   "title": "Senior Technical Lead - Regional Integration (IICA-3) - Part-time 50%",
-   "org": "United Nations Secretariat",
-   "location": "Lusaka",
+   "title": "Programme Officer, DCP/OA",
+   "org": "Economic, Social and Development",
+   "location": "Nairobi",
    "country": "",
    "posted": "2026-09-14",
-   "closing": "2026-09-29",
-   "url": "https://careers.un.org/jobSearchDescription/284747?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "closing": "2026-10-15",
+   "url": "https://careers.un.org/jobSearchDescription/283389?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "PGM Programme Management"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Associate Programme , DCP/OA (Temporary)",
+   "org": "Economic, Social and Development",
+   "location": "Geneva",
+   "country": "",
+   "posted": "2026-09-14",
+   "closing": "2026-09-22",
+   "url": "https://careers.un.org/jobSearchDescription/284395?language=en",
+   "grade": "Professional and Higher Categories",
    "summary": "PGM Programme Management"
   },
   {
@@ -2560,39 +2560,15 @@
   },
   {
    "source": "UN Careers",
-   "title": "Associate Programme , DCP/OA (Temporary)",
-   "org": "Economic, Social and Development",
-   "location": "Geneva",
+   "title": "DEPUTY CHIEF SECURITY OFFICER",
+   "org": "Internal Security and Safety",
+   "location": "Port-Au-Prince",
    "country": "",
    "posted": "2026-09-14",
-   "closing": "2026-09-22",
-   "url": "https://careers.un.org/jobSearchDescription/284395?language=en",
+   "closing": "2026-09-29",
+   "url": "https://careers.un.org/jobSearchDescription/284722?language=en",
    "grade": "Professional and Higher Categories",
-   "summary": "PGM Programme Management"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Programme Officer, DCP/OA",
-   "org": "Economic, Social and Development",
-   "location": "Nairobi",
-   "country": "",
-   "posted": "2026-09-14",
-   "closing": "2026-10-15",
-   "url": "https://careers.un.org/jobSearchDescription/283389?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "PGM Programme Management"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Urban Policy and Implementation Specialist",
-   "org": "United Nations Secretariat",
-   "location": "Rio De Janeiro",
-   "country": "",
-   "posted": "2026-09-14",
-   "closing": "2026-09-22",
-   "url": "https://careers.un.org/jobSearchDescription/284794?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "HST HST"
+   "summary": "SEC Security"
   },
   {
    "source": "UN Careers",
@@ -2620,15 +2596,15 @@
   },
   {
    "source": "UN Careers",
-   "title": "SENIOR PROGRAMME MANAGEMENT OFFICER, ADMINISTRATION",
-   "org": "Management and Administration",
-   "location": "New York",
+   "title": "Senior Technical Lead - Regional Integration (IICA-3) - Part-time 50%",
+   "org": "United Nations Secretariat",
+   "location": "Lusaka",
    "country": "",
    "posted": "2026-09-14",
-   "closing": "2026-10-14",
-   "url": "https://careers.un.org/jobSearchDescription/280802?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "ADM Administration"
+   "closing": "2026-09-29",
+   "url": "https://careers.un.org/jobSearchDescription/284747?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "PGM Programme Management"
   },
   {
    "source": "unjobs.org",
@@ -2649,7 +2625,7 @@
    "location": "Indonesia",
    "country": "",
    "posted": "2026-09-13",
-   "closing": null,
+   "closing": "2026-09-22",
    "url": "https://unjobs.org/vacancies/1789337999889",
    "grade": null,
    "summary": "External Economic Relations Officer, Jakarta, Indonesia | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon External Economic Relations Officer, Jakarta Organization: ASEAN - Association of Southeast Asian Nations Country: Indonesia City: Jakarta Office: ASEAN Jakarta Job Reference Number : EERD/OFR/058 Opening Date : 07/09/2026 Job Title : External Economic Relations Office"
@@ -2661,7 +2637,7 @@
    "location": "Indonesia",
    "country": "",
    "posted": "2026-09-13",
-   "closing": null,
+   "closing": "2026-09-25",
    "url": "https://unjobs.org/vacancies/1789338011524",
    "grade": null,
    "summary": "Building Facilities Management Officer, Jakarta, Indonesia | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Building Facilities Management Officer, Jakarta Organization: ASEAN - Association of Southeast Asian Nations Country: Indonesia City: Jakarta Office: ASEAN Jakarta Job Reference Number : AGAD/OFR/059 Opening Date : 09/09/2026 Job Title : Building Facilities Manageme"
@@ -2673,7 +2649,7 @@
    "location": "Indonesia",
    "country": "",
    "posted": "2026-09-13",
-   "closing": null,
+   "closing": "2026-10-04",
    "url": "https://unjobs.org/vacancies/1789338015287",
    "grade": null,
    "summary": "Culture & Information Officer, Jakarta, Indonesia | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Culture & Information Officer, Jakarta Organization: ASEAN - Association of Southeast Asian Nations Country: Indonesia City: Jakarta Office: ASEAN Jakarta Job Reference Number : CID/OFR/061 Opening Date : 11/09/2026 Job Title : Culture & Information Officer Closing Date : 04"
@@ -2685,7 +2661,7 @@
    "location": "Indonesia",
    "country": "",
    "posted": "2026-09-13",
-   "closing": null,
+   "closing": "2026-09-30",
    "url": "https://unjobs.org/vacancies/1789338018353",
    "grade": null,
    "summary": "Senior Officer AMTIED, Jakarta, Indonesia | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Senior Officer AMTIED, Jakarta Organization: ASEAN - Association of Southeast Asian Nations Country: Indonesia City: Jakarta Office: ASEAN Jakarta Job Reference Number : AMTIED/SO/057 Opening Date : 07/09/2026 Job Title : Senior Officer AMTIED Closing Date : 30/09/2026 Job Descripti"
@@ -2808,7 +2784,7 @@
    "closing": null,
    "url": "https://unjobs.org/vacancies/1789220200444",
    "grade": null,
-   "summary": "Project Officer (LP2), Istanbul, Türkiye Organization: International Centre for Migration Policy Development (ICMPD) Country: Turkey City: Istanbul Office: ICMPD in Istanbul, Turkey Istanbul The selected candidate will support the Migration Management\nPortfolio and will report to the relevant Project Manager. The\nposition will contribute to the implementation and coordination of\nprojects related t"
+   "summary": "Project Officer (LP2), Istanbul, Türkiye, Turkey | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Project Officer (LP2), Istanbul, Türkiye Organization: International Centre for Migration Policy Development (ICMPD) Country: Turkey City: Istanbul Office: ICMPD in Istanbul, Turkey Istanbul The selected candidate will support the Migration Management\nPortfolio and will repor"
   },
   {
    "source": "UN Careers",
@@ -2928,7 +2904,7 @@
    "closing": null,
    "url": "https://unjobs.org/vacancies/1789072258637",
    "grade": null,
-   "summary": "Project Officer-Digital- PROSPER, Nepalgunj, Nepal | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Project Officer-Digital- PROSPER, Nepalgunj, Nepal Organization: Heifer International Country: Nepal City: Nepalgunj Office: Heifer International in Nepalgunj Description Heifer Project Nepal Non-US Job Description Job Title: Project Officer-Digital Position Number: TBD New"
+   "summary": "Project Officer-Digital- PROSPER, Nepalgunj, Nepal | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Project Officer-Digital- PROSPER, Nepalgunj, Nepal Organization: Heifer International Country: Nepal Field location: Nepalgunj Office: Heifer International in Nepalgunj Description Heifer Project Nepal Non-US Job Description Job Title: Project Officer-Digital Position Numbe"
   },
   {
    "source": "unjobs.org",
@@ -2997,7 +2973,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-11",
-   "closing": null,
+   "closing": "2026-09-24",
    "url": "https://unjobs.org/vacancies/1789079353154",
    "grade": null,
    "summary": "Investment Specialist, Manila, Philippines | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Investment Specialist, Manila, Philippines Organization: ADB - Asian Development Bank Country: Philippines City: Manila Office: ADB HQ Manila Reference Number : 260889 Position Grade : TI1 Department : Private Sector Operations Department Division : Equity Investments Unit Location"
@@ -3009,7 +2985,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-11",
-   "closing": null,
+   "closing": "2026-09-24",
    "url": "https://unjobs.org/vacancies/1789133798819",
    "grade": null,
    "summary": "Extended Term Consultant (Data Analyst), Washington, United States | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Extended Term Consultant (Data Analyst), Washington, United States Organization: World Bank Group Country: United States City: Washington Office: World Bank in Washington, United States E T Consultant (Data Analyst) Job #: req38308 Organization: World Bank S"
@@ -3021,7 +2997,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-11",
-   "closing": null,
+   "closing": "2026-09-24",
    "url": "https://unjobs.org/vacancies/1789133813038",
    "grade": null,
    "summary": "Senior Transport Specialist, Washington, United States | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Senior Transport Specialist, Washington, United States Organization: World Bank Group Country: United States City: Washington Office: World Bank in Washington, United States Senior Transport Specialist Job #: req38281 Organization: World Bank Group Sector: Transportatio"
@@ -3273,7 +3249,7 @@
    "location": "Viet Nam",
    "country": "",
    "posted": "2026-09-10",
-   "closing": null,
+   "closing": "2026-09-25",
    "url": "https://unjobs.org/vacancies/1788966406726",
    "grade": null,
    "summary": "Program Manager, Danang, Vietnam, Viet Nam | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Program Manager, Danang, Vietnam Organization: Fred Hollows Foundation Country: Viet Nam Field location: Danang Office: Fred Hollows Foundation in Danang Do you want to do work that really matters? Help us end avoidable blindness. Full-time role based in Da Nang, Viet Nam (flexible"
@@ -3297,7 +3273,7 @@
    "location": "Cambodia",
    "country": "",
    "posted": "2026-09-10",
-   "closing": null,
+   "closing": "2026-09-30",
    "url": "https://unjobs.org/vacancies/1788981010711",
    "grade": null,
    "summary": "COUNTRY DIRECTOR, ACTIONAID, Phnom Penh, Cambodia | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon COUNTRY DIRECTOR, ACTIONAID, Phnom Penh, Cambodia Organization: ActionAid International Country: Cambodia City: Phnom Penh Office: ActionAid in Phnom Penh JOB TITLE : COUNTRY DIRECTOR, ACTIONAID CAMBODIA JOB LOCATION : PHNOM PENH, CAMBODIA CONTRACT TYPE : FIXED DURATION CONT"
@@ -3333,7 +3309,7 @@
    "location": "Nepal",
    "country": "",
    "posted": "2026-09-10",
-   "closing": null,
+   "closing": "2026-09-23",
    "url": "https://unjobs.org/vacancies/1788966398064",
    "grade": null,
    "summary": "Program Coordinator, Kathmandu, Nepal | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Program Coordinator, Kathmandu Organization: Fred Hollows Foundation Country: Nepal City: Kathmandu Office: Fred Hollows Foundation in Kathmandu Do you want to do work that really matters? Help us end avoidable blindness. Fixed Term, Full Time Role based in Kathmandu, Nepal. Closing Dat"
@@ -3429,7 +3405,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-10",
-   "closing": null,
+   "closing": "2026-09-23",
    "url": "https://unjobs.org/vacancies/1788991154060",
    "grade": null,
    "summary": "ADB Vacancy: Procurement Officer, Port Moresby, Papua New Guinea | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Procurement Officer, Port Moresby, Papua New Guinea Organization: ADB - Asian Development Bank Country: Papua New Guinea City: Port Moresby Office: ADB Papua New Guinea Reference Number : 260865 Position Grade : TL5 Department : Procurement, Portfolio and Fina"
@@ -3441,7 +3417,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-10",
-   "closing": null,
+   "closing": "2026-09-21",
    "url": "https://unjobs.org/vacancies/1788991134997",
    "grade": null,
    "summary": "ADB Vacancy: Climate Change Officer (Climate Change Adaptation), New Delhi, India | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Climate Change Officer (Climate Change Adaptation), New Delhi Organization: ADB - Asian Development Bank Country: India City: New Delhi Office: ADB New Delhi Reference Number : 260856 Position Grade : TL5 Department : Climate Change and Sustai"
@@ -3453,7 +3429,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-10",
-   "closing": null,
+   "closing": "2026-09-21",
    "url": "https://unjobs.org/vacancies/1788991146730",
    "grade": null,
    "summary": "Treasury Specialist, Manila, Philippines | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Treasury Specialist, Manila, Philippines Organization: ADB - Asian Development Bank Country: Philippines City: Manila Office: ADB HQ Manila Reference Number : 260881 Position Grade : TI1 Department : Treasury Department Division : Investments Division Location : Asian Development Ban"
@@ -3465,7 +3441,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-10",
-   "closing": null,
+   "closing": "2026-09-21",
    "url": "https://unjobs.org/vacancies/1788991149255",
    "grade": null,
    "summary": "Markets Development Advisory Analyst, Manila, Philippines | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Markets Development Advisory Analyst, Manila, Philippines Organization: ADB - Asian Development Bank Country: Philippines City: Manila Office: ADB HQ Manila Reference Number : 260882 Position Grade : TL3 Department : Office of Markets Development and\nPublic-Private P"
@@ -3477,22 +3453,10 @@
    "location": "",
    "country": "",
    "posted": "2026-09-10",
-   "closing": null,
+   "closing": "2026-09-23",
    "url": "https://unjobs.org/vacancies/1788991151673",
    "grade": null,
    "summary": "Communications Analyst, Manila, Philippines | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Communications Analyst, Manila, Philippines Organization: ADB - Asian Development Bank Country: Philippines City: Manila Office: ADB HQ Manila Reference Number : 260883 Position Grade : TL3 Department : Department of Communications and Knowledge\nManagement Division : Infrastructur"
-  },
-  {
-   "source": "unjobs.org",
-   "title": "Manager, Talent and Career Development, Washington, United States",
-   "org": "World Bank Group",
-   "location": "",
-   "country": "",
-   "posted": "2026-09-10",
-   "closing": null,
-   "url": "https://unjobs.org/vacancies/1788964863844",
-   "grade": null,
-   "summary": "Manager, Talent and Career Development, Washington, United States | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Manager, Talent and Career Development, Washington, United States Organization: World Bank Group Country: United States City: Washington Office: World Bank in Washington, United States Manager, Talent and Career Development Job #: req38230 Organization: World"
   },
   {
    "source": "unjobs.org",
@@ -3501,7 +3465,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-10",
-   "closing": null,
+   "closing": "2026-09-29",
    "url": "https://unjobs.org/vacancies/1788964988240",
    "grade": null,
    "summary": "Deputy Chief Executive Officer, GPE, Washington, United States | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Deputy Chief Executive Officer, GPE, Washington, United States Organization: World Bank Group Country: United States City: Washington Office: World Bank in Washington, United States Deputy Chief Executive Officer, GPE Job #: req38273 Organization: World Bank Gro"
@@ -3513,7 +3477,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-10",
-   "closing": null,
+   "closing": "2026-09-21",
    "url": "https://unjobs.org/vacancies/1788965029292",
    "grade": null,
    "summary": "Program Analyst, Washington, United States | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Program Analyst, Washington, United States Organization: World Bank Group Country: United States City: Washington Office: World Bank in Washington, United States Program Analyst Job #: req38264 Organization: World Bank Sector: Ethics & Internal Justice Systems Grade: GE Term Durati"
@@ -3544,30 +3508,6 @@
   },
   {
    "source": "UN Careers",
-   "title": "CHANGE AND PROJECT MANAGEMENT OFFICER (Temporary)",
-   "org": "Management and Administration",
-   "location": "The Hague",
-   "country": "",
-   "posted": "2026-09-10",
-   "closing": "2026-09-24",
-   "url": "https://careers.un.org/jobSearchDescription/284300?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "MGA Management and Analysis"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Operations Analyst",
-   "org": "United Nations Secretariat",
-   "location": "Rio De Janeiro",
-   "country": "",
-   "posted": "2026-09-10",
-   "closing": "2026-09-21",
-   "url": "https://careers.un.org/jobSearchDescription/284661?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "HST HST"
-  },
-  {
-   "source": "UN Careers",
    "title": "Finance and Budget Officer",
    "org": "Management and Administration",
    "location": "New York",
@@ -3580,15 +3520,15 @@
   },
   {
    "source": "UN Careers",
-   "title": "Procurement Officer",
-   "org": "Logistics, Transportation and Supply Chain",
-   "location": "New York",
+   "title": "Buildings and Carbon Management Policy Specialist",
+   "org": "United Nations Secretariat",
+   "location": "Paris",
    "country": "",
    "posted": "2026-09-10",
-   "closing": "2026-10-25",
-   "url": "https://careers.un.org/jobSearchDescription/283354?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "PRO Procurement"
+   "closing": "2026-09-21",
+   "url": "https://careers.un.org/jobSearchDescription/284637?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "ENV Environmental Affairs"
   },
   {
    "source": "UN Careers",
@@ -3604,15 +3544,39 @@
   },
   {
    "source": "UN Careers",
-   "title": "Buildings and Carbon Management Policy Specialist",
+   "title": "Operations Analyst",
    "org": "United Nations Secretariat",
-   "location": "Paris",
+   "location": "Rio De Janeiro",
    "country": "",
    "posted": "2026-09-10",
    "closing": "2026-09-21",
-   "url": "https://careers.un.org/jobSearchDescription/284637?language=en",
+   "url": "https://careers.un.org/jobSearchDescription/284661?language=en",
    "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "ENV Environmental Affairs"
+   "summary": "HST HST"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Procurement Officer",
+   "org": "Logistics, Transportation and Supply Chain",
+   "location": "New York",
+   "country": "",
+   "posted": "2026-09-10",
+   "closing": "2026-10-25",
+   "url": "https://careers.un.org/jobSearchDescription/283354?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "PRO Procurement"
+  },
+  {
+   "source": "UN Careers",
+   "title": "CHANGE AND PROJECT MANAGEMENT OFFICER (Temporary)",
+   "org": "Management and Administration",
+   "location": "The Hague",
+   "country": "",
+   "posted": "2026-09-10",
+   "closing": "2026-09-24",
+   "url": "https://careers.un.org/jobSearchDescription/284300?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "MGA Management and Analysis"
   },
   {
    "source": "unjobs.org",
@@ -3676,39 +3640,15 @@
   },
   {
    "source": "UN Careers",
-   "title": "Project ICT Support Specialist",
-   "org": "Information and Telecommunication Technology",
-   "location": "R010 Fo Jordan",
+   "title": "Senior Private Sector Partnerships and Events Lead Consultant",
+   "org": "United Nations Secretariat",
+   "location": "Paris",
    "country": "",
    "posted": "2026-09-09",
-   "closing": "2026-09-23",
-   "url": "https://careers.un.org/jobSearchDescription/284011?language=en",
-   "grade": null,
-   "summary": "IST Information Management Systems and Technology"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Chief of Section, Programme Management (TMAT)",
-   "org": "Economic, Social and Development",
-   "location": "Nairobi",
-   "country": "",
-   "posted": "2026-09-09",
-   "closing": "2026-10-09",
-   "url": "https://careers.un.org/jobSearchDescription/283367?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "PGM Programme Management"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Vocational Training Instructor - (AC Refrigerator) - Daily Paid Opportunity - Grade 9 - TVET program - Damascus area",
-   "org": "Economic, Social and Development",
-   "location": "R007 Syria Damascus Area",
-   "country": "",
-   "posted": "2026-09-09",
-   "closing": "2026-09-23",
-   "url": "https://careers.un.org/jobSearchDescription/284517?language=en",
-   "grade": null,
-   "summary": "EDU Education"
+   "closing": "2026-09-22",
+   "url": "https://careers.un.org/jobSearchDescription/284309?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "ENV Environmental Affairs"
   },
   {
    "source": "UN Careers",
@@ -3724,42 +3664,6 @@
   },
   {
    "source": "UN Careers",
-   "title": "Associate Human Rights Officer",
-   "org": "Political, Peace and Humanitarian",
-   "location": "Kyiv",
-   "country": "",
-   "posted": "2026-09-09",
-   "closing": "2026-09-24",
-   "url": "https://careers.un.org/jobSearchDescription/284246?language=en",
-   "grade": "National Professional Officers",
-   "summary": "HRI Human Rights Affairs"
-  },
-  {
-   "source": "UN Careers",
-   "title": "SENIOR COORDINATION OFFICER",
-   "org": "Economic, Social and Development",
-   "location": "Kingston",
-   "country": "",
-   "posted": "2026-09-09",
-   "closing": "2026-10-09",
-   "url": "https://careers.un.org/jobSearchDescription/282340?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "PGM Programme Management"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Senior Private Sector Partnerships and Events Lead Consultant",
-   "org": "United Nations Secretariat",
-   "location": "Paris",
-   "country": "",
-   "posted": "2026-09-09",
-   "closing": "2026-09-22",
-   "url": "https://careers.un.org/jobSearchDescription/284309?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "ENV Environmental Affairs"
-  },
-  {
-   "source": "UN Careers",
    "title": "Knowledge Management Officer (Law Library)",
    "org": "Public Information and Conference Management",
    "location": "Kingston",
@@ -3772,15 +3676,15 @@
   },
   {
    "source": "UN Careers",
-   "title": "INBOUND DELIVERY COORDINATION OFFICER",
-   "org": "Logistics, Transportation and Supply Chain",
-   "location": "Port-Au-Prince",
+   "title": "Project ICT Support Specialist",
+   "org": "Information and Telecommunication Technology",
+   "location": "R010 Fo Jordan",
    "country": "",
    "posted": "2026-09-09",
-   "closing": "2026-09-24",
-   "url": "https://careers.un.org/jobSearchDescription/284585?language=en",
-   "grade": "Field Service",
-   "summary": "TRA Transportation"
+   "closing": "2026-09-23",
+   "url": "https://careers.un.org/jobSearchDescription/284011?language=en",
+   "grade": null,
+   "summary": "IST Information Management Systems and Technology"
   },
   {
    "source": "UN Careers",
@@ -3796,6 +3700,18 @@
   },
   {
    "source": "UN Careers",
+   "title": "SENIOR COORDINATION OFFICER",
+   "org": "Economic, Social and Development",
+   "location": "Kingston",
+   "country": "",
+   "posted": "2026-09-09",
+   "closing": "2026-10-09",
+   "url": "https://careers.un.org/jobSearchDescription/282340?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "PGM Programme Management"
+  },
+  {
+   "source": "UN Careers",
    "title": "Consultant/Regional Expert for UNEP/MAP to support the MAP Secretariat with the preparation of a Resource Mobilization Strategy for 2028-2033 (C Level)",
    "org": "United Nations Secretariat",
    "location": "Athens",
@@ -3805,6 +3721,54 @@
    "url": "https://careers.un.org/jobSearchDescription/283918?language=en",
    "grade": "Affiliate Personnel – Consultants/Individual Contractors",
    "summary": "ENV Environmental Affairs"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Chief of Section, Programme Management (TMAT)",
+   "org": "Economic, Social and Development",
+   "location": "Nairobi",
+   "country": "",
+   "posted": "2026-09-09",
+   "closing": "2026-10-09",
+   "url": "https://careers.un.org/jobSearchDescription/283367?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "PGM Programme Management"
+  },
+  {
+   "source": "UN Careers",
+   "title": "INBOUND DELIVERY COORDINATION OFFICER",
+   "org": "Logistics, Transportation and Supply Chain",
+   "location": "Port-Au-Prince",
+   "country": "",
+   "posted": "2026-09-09",
+   "closing": "2026-09-24",
+   "url": "https://careers.un.org/jobSearchDescription/284585?language=en",
+   "grade": "Field Service",
+   "summary": "TRA Transportation"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Vocational Training Instructor - (AC Refrigerator) - Daily Paid Opportunity - Grade 9 - TVET program - Damascus area",
+   "org": "Economic, Social and Development",
+   "location": "R007 Syria Damascus Area",
+   "country": "",
+   "posted": "2026-09-09",
+   "closing": "2026-09-23",
+   "url": "https://careers.un.org/jobSearchDescription/284517?language=en",
+   "grade": null,
+   "summary": "EDU Education"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Associate Human Rights Officer",
+   "org": "Political, Peace and Humanitarian",
+   "location": "Kyiv",
+   "country": "",
+   "posted": "2026-09-09",
+   "closing": "2026-09-24",
+   "url": "https://careers.un.org/jobSearchDescription/284246?language=en",
+   "grade": "National Professional Officers",
+   "summary": "HRI Human Rights Affairs"
   },
   {
    "source": "unjobs.org",
@@ -3825,7 +3789,7 @@
    "location": "Japan",
    "country": "",
    "posted": "2026-09-08",
-   "closing": null,
+   "closing": "2026-09-20",
    "url": "https://unjobs.org/vacancies/1788878134833",
    "grade": null,
    "summary": "Administrative Officer, Tokyo, Japan | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Administrative Officer, Tokyo, Japan Organization: United Nations University (UNU) Country: Japan City: Tokyo Office: UNU-IAS Tokyo Job description About UN University (UNU) The United Nations University (UNU) is a global think tank and postgraduate teaching organization within the Unite"
@@ -3856,30 +3820,6 @@
   },
   {
    "source": "UN Careers",
-   "title": "National Technical Officer for Serbia - Level A",
-   "org": "United Nations Secretariat",
-   "location": "Vienna",
-   "country": "",
-   "posted": "2026-09-08",
-   "closing": "2026-09-19",
-   "url": "https://careers.un.org/jobSearchDescription/284221?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "ENV Environmental Affairs"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Enterprise Support Officer - TVET - Daily Paid Opportunity - Damascus Area - Grade 14",
-   "org": "Economic, Social and Development",
-   "location": "R024 Fo Syria",
-   "country": "",
-   "posted": "2026-09-08",
-   "closing": "2026-09-22",
-   "url": "https://careers.un.org/jobSearchDescription/284392?language=en",
-   "grade": null,
-   "summary": "EDU Education"
-  },
-  {
-   "source": "UN Careers",
    "title": "TVET Instructor - Commercial (E-Business) - Daily Paid Opportunity - Grade A11 - TVET program - Damascus Area",
    "org": "Economic, Social and Development",
    "location": "R007 Syria Damascus Area",
@@ -3892,15 +3832,15 @@
   },
   {
    "source": "UN Careers",
-   "title": "Vocational Training Instructor (Auto Body Repairing & Painting) - Grade 9 - TVET program - Damascus area",
-   "org": "Economic, Social and Development",
-   "location": "R007 Syria Damascus Area",
+   "title": "Consultant Security Information Analyst",
+   "org": "United Nations Secretariat",
+   "location": "Nairobi",
    "country": "",
    "posted": "2026-09-08",
-   "closing": "2026-09-22",
-   "url": "https://careers.un.org/jobSearchDescription/284304?language=en",
-   "grade": null,
-   "summary": "EDU Education"
+   "closing": "2026-09-19",
+   "url": "https://careers.un.org/jobSearchDescription/283684?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "SEC Security"
   },
   {
    "source": "UN Careers",
@@ -3916,15 +3856,15 @@
   },
   {
    "source": "UN Careers",
-   "title": "INFORMATION SYSTEMS OFFICER",
-   "org": "Information and Telecommunication Technology",
-   "location": "Bogota",
+   "title": "Enterprise Support Officer - TVET - Daily Paid Opportunity - Damascus Area - Grade 14",
+   "org": "Economic, Social and Development",
+   "location": "R024 Fo Syria",
    "country": "",
    "posted": "2026-09-08",
-   "closing": "2026-10-08",
-   "url": "https://careers.un.org/jobSearchDescription/284477?language=en",
-   "grade": "Field Service",
-   "summary": "IST Information Management Systems and Technology"
+   "closing": "2026-09-22",
+   "url": "https://careers.un.org/jobSearchDescription/284392?language=en",
+   "grade": null,
+   "summary": "EDU Education"
   },
   {
    "source": "UN Careers",
@@ -3940,15 +3880,39 @@
   },
   {
    "source": "UN Careers",
-   "title": "Consultant Security Information Analyst",
+   "title": "National Technical Officer for Serbia - Level A",
    "org": "United Nations Secretariat",
-   "location": "Nairobi",
+   "location": "Vienna",
    "country": "",
    "posted": "2026-09-08",
    "closing": "2026-09-19",
-   "url": "https://careers.un.org/jobSearchDescription/283684?language=en",
+   "url": "https://careers.un.org/jobSearchDescription/284221?language=en",
    "grade": "Affiliate Personnel – Consultants/Individual Contractors",
-   "summary": "SEC Security"
+   "summary": "ENV Environmental Affairs"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Vocational Training Instructor (Auto Body Repairing & Painting) - Grade 9 - TVET program - Damascus area",
+   "org": "Economic, Social and Development",
+   "location": "R007 Syria Damascus Area",
+   "country": "",
+   "posted": "2026-09-08",
+   "closing": "2026-09-22",
+   "url": "https://careers.un.org/jobSearchDescription/284304?language=en",
+   "grade": null,
+   "summary": "EDU Education"
+  },
+  {
+   "source": "UN Careers",
+   "title": "INFORMATION SYSTEMS OFFICER",
+   "org": "Information and Telecommunication Technology",
+   "location": "Bogota",
+   "country": "",
+   "posted": "2026-09-08",
+   "closing": "2026-10-08",
+   "url": "https://careers.un.org/jobSearchDescription/284477?language=en",
+   "grade": "Field Service",
+   "summary": "IST Information Management Systems and Technology"
   },
   {
    "source": "unjobs.org",
@@ -3957,7 +3921,7 @@
    "location": "",
    "country": "",
    "posted": "2026-09-07",
-   "closing": null,
+   "closing": "2026-09-18",
    "url": "https://unjobs.org/vacancies/1788710088447",
    "grade": null,
    "summary": "Associate Investment Officer, Manila, Philippines | UNjobs Toggle navigation Latest Duty Stations Organizations Closing Soon Associate Investment Officer, Manila, Philippines Organization: ADB - Asian Development Bank Country: Philippines City: Manila Office: ADB HQ Manila Reference Number : 260697 Position Grade : TL4 Department : Private Sector Operations Department Division : Private Sector Inv"
@@ -4072,18 +4036,6 @@
   },
   {
    "source": "UN Careers",
-   "title": "TVET Instructor (Trade Theory Mechanic) - Daily Paid Opportunity - Grade A11 - TVET program - Homs & Lattakia areas",
-   "org": "Economic, Social and Development",
-   "location": "R009 Syria Central Area",
-   "country": "",
-   "posted": "2026-09-06",
-   "closing": "2026-09-20",
-   "url": "https://careers.un.org/jobSearchDescription/284032?language=en",
-   "grade": null,
-   "summary": "EDU Education"
-  },
-  {
-   "source": "UN Careers",
    "title": "TVET Instructor (Electronics) - Daily Paid Opportunity - Grade A11 - TVET program - Damascus area",
    "org": "Economic, Social and Development",
    "location": "R007 Syria Damascus Area",
@@ -4091,6 +4043,18 @@
    "posted": "2026-09-06",
    "closing": "2026-09-20",
    "url": "https://careers.un.org/jobSearchDescription/284038?language=en",
+   "grade": null,
+   "summary": "EDU Education"
+  },
+  {
+   "source": "UN Careers",
+   "title": "TVET Instructor (Trade Theory Mechanic) - Daily Paid Opportunity - Grade A11 - TVET program - Homs & Lattakia areas",
+   "org": "Economic, Social and Development",
+   "location": "R009 Syria Central Area",
+   "country": "",
+   "posted": "2026-09-06",
+   "closing": "2026-09-20",
+   "url": "https://careers.un.org/jobSearchDescription/284032?language=en",
    "grade": null,
    "summary": "EDU Education"
   },
@@ -4420,18 +4384,6 @@
   },
   {
    "source": "UN Careers",
-   "title": "Security Information Analyst",
-   "org": "Internal Security and Safety",
-   "location": "R018 Hq Amman",
-   "country": "",
-   "posted": "2026-08-31",
-   "closing": "2026-09-28",
-   "url": "https://careers.un.org/jobSearchDescription/283082?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "SEC Security"
-  },
-  {
-   "source": "UN Careers",
    "title": "HUMANITARIAN AFFAIRS OFFICER",
    "org": "Political, Peace and Humanitarian",
    "location": "New York",
@@ -4441,6 +4393,18 @@
    "url": "https://careers.un.org/jobSearchDescription/283797?language=en",
    "grade": "Professional and Higher Categories",
    "summary": "HRA Humanitarian Affairs"
+  },
+  {
+   "source": "UN Careers",
+   "title": "Security Information Analyst",
+   "org": "Internal Security and Safety",
+   "location": "R018 Hq Amman",
+   "country": "",
+   "posted": "2026-08-31",
+   "closing": "2026-09-28",
+   "url": "https://careers.un.org/jobSearchDescription/283082?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "SEC Security"
   },
   {
    "source": "UN Careers",
@@ -4504,18 +4468,6 @@
   },
   {
    "source": "UN Careers",
-   "title": "PRINCIPAL POLITICAL AFFAIRS OFFICER",
-   "org": "Political, Peace and Humanitarian",
-   "location": "Nairobi",
-   "country": "",
-   "posted": "2026-08-26",
-   "closing": "2026-09-25",
-   "url": "https://careers.un.org/jobSearchDescription/283548?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "POL Political Affairs"
-  },
-  {
-   "source": "UN Careers",
    "title": "Associate Programme Officer  (Organizational Excellence and Ecosystems), DECI/IE",
    "org": "Economic, Social and Development",
    "location": "Geneva",
@@ -4525,6 +4477,18 @@
    "url": "https://careers.un.org/jobSearchDescription/282861?language=en",
    "grade": "Professional and Higher Categories",
    "summary": "PGM Programme Management"
+  },
+  {
+   "source": "UN Careers",
+   "title": "PRINCIPAL POLITICAL AFFAIRS OFFICER",
+   "org": "Political, Peace and Humanitarian",
+   "location": "Nairobi",
+   "country": "",
+   "posted": "2026-08-26",
+   "closing": "2026-09-25",
+   "url": "https://careers.un.org/jobSearchDescription/283548?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "POL Political Affairs"
   },
   {
    "source": "UN Careers",
@@ -4540,6 +4504,18 @@
   },
   {
    "source": "UN Careers",
+   "title": "Programme Management Officer, Administration",
+   "org": "Management and Administration",
+   "location": "New York",
+   "country": "",
+   "posted": "2026-08-24",
+   "closing": "2026-10-08",
+   "url": "https://careers.un.org/jobSearchDescription/279826?language=en",
+   "grade": "Professional and Higher Categories",
+   "summary": "ADM Administration"
+  },
+  {
+   "source": "UN Careers",
    "title": "Associate Programme Officer, DMD/SPTI (FT-Ltd)",
    "org": "Economic, Social and Development",
    "location": "Geneva",
@@ -4548,18 +4524,6 @@
    "closing": "2026-09-24",
    "url": "https://careers.un.org/jobSearchDescription/283503?language=en",
    "grade": "Professional and Higher Categories",
-   "summary": "PGM Programme Management"
-  },
-  {
-   "source": "UN Careers",
-   "title": "Natl Consultant. Monitoring and Coordination under Grenada’s national inventory of banks of waste-controlled substances and development of a national plan for management of these substances",
-   "org": "United Nations Secretariat",
-   "location": "Paris",
-   "country": "",
-   "posted": "2026-08-24",
-   "closing": "2026-10-01",
-   "url": "https://careers.un.org/jobSearchDescription/283359?language=en",
-   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
    "summary": "PGM Programme Management"
   },
   {
@@ -4576,15 +4540,15 @@
   },
   {
    "source": "UN Careers",
-   "title": "Programme Management Officer, Administration",
-   "org": "Management and Administration",
-   "location": "New York",
+   "title": "Natl Consultant. Monitoring and Coordination under Grenada’s national inventory of banks of waste-controlled substances and development of a national plan for management of these substances",
+   "org": "United Nations Secretariat",
+   "location": "Paris",
    "country": "",
    "posted": "2026-08-24",
-   "closing": "2026-10-08",
-   "url": "https://careers.un.org/jobSearchDescription/279826?language=en",
-   "grade": "Professional and Higher Categories",
-   "summary": "ADM Administration"
+   "closing": "2026-10-01",
+   "url": "https://careers.un.org/jobSearchDescription/283359?language=en",
+   "grade": "Affiliate Personnel – Consultants/Individual Contractors",
+   "summary": "PGM Programme Management"
   },
   {
    "source": "UN Careers",
@@ -4660,15 +4624,15 @@
   },
   {
    "source": "UN Careers",
-   "title": "Senior Administrative Officer",
-   "org": "Management and Administration",
+   "title": "Chief of Section, Programme Management",
+   "org": "Economic, Social and Development",
    "location": "New York",
    "country": "",
    "posted": "2026-08-12",
    "closing": "2026-09-26",
-   "url": "https://careers.un.org/jobSearchDescription/279202?language=en",
+   "url": "https://careers.un.org/jobSearchDescription/282182?language=en",
    "grade": "Professional and Higher Categories",
-   "summary": "ADM Administration"
+   "summary": "PGM Programme Management"
   },
   {
    "source": "UN Careers",
@@ -4684,15 +4648,15 @@
   },
   {
    "source": "UN Careers",
-   "title": "Chief of Section, Programme Management",
-   "org": "Economic, Social and Development",
+   "title": "Senior Administrative Officer",
+   "org": "Management and Administration",
    "location": "New York",
    "country": "",
    "posted": "2026-08-12",
    "closing": "2026-09-26",
-   "url": "https://careers.un.org/jobSearchDescription/282182?language=en",
+   "url": "https://careers.un.org/jobSearchDescription/279202?language=en",
    "grade": "Professional and Higher Categories",
-   "summary": "PGM Programme Management"
+   "summary": "ADM Administration"
   },
   {
    "source": "UN Careers",
