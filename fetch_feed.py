@@ -88,6 +88,8 @@ def current(rec):
         return False
     if not c and not p:
         return False
+    if not c and p and (TODAY - dt.date.fromisoformat(p)).days > 21:
+        return False
     return True
 
 
@@ -106,32 +108,53 @@ def reliefweb():
         "filter": {"field": "date.created", "value": {"from": since}},
         "fields": {"include": ["title", "source.name", "city.name", "country.name", "date.created", "date.closing", "url", "career_categories.name", "experience.name", "body"]},
     }
-    offset = 0
-    while True:
-        body["offset"] = offset
-        r = requests.post("https://api.reliefweb.int/v2/jobs?appname=job-feed", json=body, headers=UA, timeout=60)
-        if r.status_code != 200:
-            print("DEBUG reliefweb", r.status_code, r.text[:600], file=sys.stderr)
-        r.raise_for_status()
-        data = r.json().get("data", [])
-        for it in data:
-            f = it.get("fields", {})
-            out.append({
-                "source": "ReliefWeb",
-                "title": f.get("title", ""),
-                "org": txt(f.get("source")),
-                "location": txt(f.get("city")),
-                "country": txt(f.get("country")),
-                "posted": norm_date((f.get("date") or {}).get("created")),
-                "closing": norm_date((f.get("date") or {}).get("closing")),
-                "url": f.get("url", ""),
-                "grade": grade_of(f.get("title", "") + " " + (f.get("body") or "")[:400]),
-                "summary": re.sub(r"\s+", " ", (f.get("body") or ""))[:400],
-            })
-        if len(data) < body["limit"] or offset > 5000:
-            break
-        offset += body["limit"]
-        time.sleep(1)
+    for appname in ("rwint-user-0", "apidoc", "rw-user-0"):
+        try:
+            offset, ok = 0, False
+            while True:
+                body["offset"] = offset
+                r = requests.post(f"https://api.reliefweb.int/v2/jobs?appname={appname}", json=body, headers=UA, timeout=60)
+                if r.status_code != 200:
+                    print("DEBUG reliefweb", appname, r.status_code, r.text[:200], file=sys.stderr)
+                    break
+                ok = True
+                data = r.json().get("data", [])
+                for it in data:
+                    f = it.get("fields", {})
+                    out.append({
+                        "source": "ReliefWeb", "title": txt(f.get("title")), "org": txt(f.get("source")),
+                        "location": txt(f.get("city")), "country": txt(f.get("country")),
+                        "posted": norm_date((f.get("date") or {}).get("created")),
+                        "closing": norm_date((f.get("date") or {}).get("closing")),
+                        "url": txt(f.get("url")), "grade": grade_of(txt(f.get("title")) + " " + (f.get("body") or "")[:400]),
+                        "summary": re.sub(r"\s+", " ", (f.get("body") or ""))[:400],
+                    })
+                if len(data) < body["limit"] or offset > 5000:
+                    break
+                offset += body["limit"]
+                time.sleep(1)
+            if ok:
+                return out
+        except Exception as e:
+            print("reliefweb api failed", appname, e, file=sys.stderr)
+    # RSS fallback: newest postings with closing date inside the description
+    try:
+        r = requests.get("https://reliefweb.int/jobs/rss.xml", headers=UA, timeout=60)
+        print("DEBUG reliefweb rss", r.status_code, len(r.text), file=sys.stderr)
+        soup = BeautifulSoup(r.text, "xml")
+        for item in soup.find_all("item"):
+            desc = BeautifulSoup(item.description.get_text() if item.description else "", "html.parser").get_text(" ", strip=True)
+            m = re.search(r"Closing date:?\s*(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})", desc)
+            org = ""
+            mo = re.search(r"Organization:?\s*([^|]+?)(?:\s{2,}|Closing|Country|$)", desc)
+            if mo:
+                org = mo.group(1).strip()
+            out.append({"source": "ReliefWeb", "title": item.title.get_text(strip=True) if item.title else "", "org": org,
+                        "location": "", "country": "", "posted": norm_date(item.pubDate.get_text() if item.pubDate else None),
+                        "closing": norm_date(m.group(1)) if m else None, "url": item.link.get_text(strip=True) if item.link else "",
+                        "grade": grade_of(desc[:400]), "summary": desc[:400]})
+    except Exception as e:
+        print("reliefweb rss failed", e, file=sys.stderr)
     return out
 
 
@@ -161,41 +184,57 @@ def unjobs():
         try:
             r = requests.get(url, headers=UA, timeout=45)
             if r.status_code != 200:
+                print("unjobs status", r.status_code, url, file=sys.stderr)
                 continue
             soup = BeautifulSoup(r.text, "html.parser")
-            blocks = soup.select("div.job")
-            if url == UNJOBS_PAGES[0]:
-                print("DEBUG unjobs blocks", len(blocks), file=sys.stderr)
-                for b in blocks[:3]:
-                    print("DEBUG unjobs block:", repr(b.get_text(" | ", strip=True)[:400]), file=sys.stderr)
-                if not blocks:
-                    print("DEBUG unjobs html head:", repr(r.text[:1500]), file=sys.stderr)
-            for job in blocks:
+            for job in soup.select("div.job"):
                 a = job.find("a", href=True)
                 if not a:
                     continue
-                text = job.get_text(" ", strip=True)
-                closing = None
-                m = re.search(r"Closing date:?\s*([^\n|]+?\d{4})", text)
-                if m:
-                    closing = norm_date(m.group(1))
-                posted = None
-                m2 = re.search(r"Updated:?\s*([^\n|]+?\d{4})", text)
-                if m2:
-                    posted = norm_date(m2.group(1))
+                parts = [p.strip() for p in job.get_text(" | ", strip=True).split("|") if p.strip()]
+                title = a.get_text(strip=True)
                 org = ""
-                b = job.find("br")
-                if b and b.next_sibling and isinstance(b.next_sibling, str):
-                    org = b.next_sibling.strip()
+                for p in parts[1:]:
+                    if p.lower().startswith("updated") or re.match(r"\d{4}-\d{2}-\d{2}", p):
+                        break
+                    org = p
+                m = re.search(r"(\d{4}-\d{2}-\d{2})T", job.get_text(" ", strip=True))
+                posted = m.group(1) if m else None
                 out.append({
-                    "source": "unjobs.org", "title": a.get_text(strip=True), "org": org,
+                    "source": "unjobs.org", "title": title, "org": org,
                     "location": url.rsplit("/", 1)[-1].replace("-", " ").title() if "duty_stations" in url else "",
-                    "country": "", "posted": posted, "closing": closing, "url": a["href"],
-                    "grade": grade_of(a.get_text(strip=True)), "summary": text[:300],
+                    "country": "", "posted": posted, "closing": None, "url": a["href"],
+                    "grade": grade_of(title), "summary": "",
                 })
             time.sleep(1.5)
         except Exception as e:
             print("unjobs page failed", url, e, file=sys.stderr)
+    # closing dates live on the detail pages: fetch them for recent, relevant, non-junior postings
+    seen = set()
+    fetched = 0
+    for rec in out:
+        if rec["url"] in seen or not rec["posted"] or (TODAY - dt.date.fromisoformat(rec["posted"])).days > 21:
+            continue
+        if not relevant(rec):
+            continue
+        seen.add(rec["url"])
+        if fetched >= 250:
+            break
+        try:
+            d = requests.get(rec["url"], headers=UA, timeout=45)
+            t = BeautifulSoup(d.text, "html.parser").get_text(" ", strip=True)
+            m = re.search(r"Closing date:?\s*([A-Za-z]*,?\s*\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4}|\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4})", t)
+            if m:
+                rec["closing"] = norm_date(m.group(1).split(",")[-1].strip())
+            g = grade_of(t[:2500])
+            if g:
+                rec["grade"] = g
+            rec["summary"] = t[t.find(rec["title"]):][:400] if rec["title"] in t else t[:400]
+            fetched += 1
+            time.sleep(1)
+        except Exception as e:
+            print("unjobs detail failed", rec["url"], e, file=sys.stderr)
+    print("DEBUG unjobs details fetched", fetched, "with closing", sum(1 for r in out if r["closing"]), file=sys.stderr)
     return out
 
 
@@ -250,11 +289,24 @@ def undp():
         if items:
             print("DEBUG undp keys:", sorted(items[0].keys()), file=sys.stderr)
             print("DEBUG undp sample:", {k: items[0][k] for k in items[0] if "Date" in k or "date" in k}, file=sys.stderr)
-        for it in items:
+        for n, it in enumerate(items):
             url = f"https://estm.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/{it.get('Id')}"
+            closing = it.get("PostingEndDate") or it.get("ExpirationDate")
+            if not closing:
+                try:
+                    det = requests.get("https://estm.fa.em2.oraclecloud.com/hcmRestApi/resources/latest/recruitingCEJobRequisitionDetails"
+                                       f"?expand=all&onlyData=true&finder=ByRequisitionId;requisitionId={it.get('Id')},siteNumber=CX_1", headers=UA, timeout=45).json()
+                    d0 = (det.get("items") or [{}])[0]
+                    if n == 0:
+                        print("DEBUG undp detail date keys:", {k: v for k, v in d0.items() if "Date" in k or "date" in k}, file=sys.stderr)
+                    closing = d0.get("ExternalPostingEndDate") or d0.get("PostingEndDate") or d0.get("ExpirationDate")
+                    time.sleep(0.4)
+                except Exception as e:
+                    print("undp detail failed", it.get("Id"), e, file=sys.stderr)
+            it["_closing"] = closing
             out.append({"source": "UNDP", "title": it.get("Title", ""), "org": "UNDP",
                         "location": it.get("PrimaryLocation", ""), "country": it.get("PrimaryLocationCountry", ""),
-                        "posted": norm_date(it.get("PostedDate")), "closing": norm_date(it.get("PostingEndDate") or it.get("ExpirationDate")),
+                        "posted": norm_date(it.get("PostedDate")), "closing": norm_date(it.get("_closing")),
                         "url": url, "grade": grade_of(it.get("Title", "") + " " + (it.get("ShortDescriptionStr") or "")),
                         "summary": re.sub(r"<[^>]+>", " ", it.get("ShortDescriptionStr") or "")[:400]})
     except Exception as e:
@@ -267,7 +319,7 @@ def uncareers():
     out = []
     try:
         api = "https://careers.un.org/api/public/opening/jo/list/filteredV2/en"
-        payload = {"filterConfig": {"keyword": "", "jn": [], "jc": [], "jf": [], "jl": [], "dept": [], "jo": []}, "pagination": {"page": 0, "itemPerPage": 200, "sortBy": "startDate", "sortDirection": -1}}
+        payload = {"filterConfig": {"keyword": "", "jn": [], "jc": [], "jf": [], "jl": [], "dept": [], "jo": []}, "pagination": {"page": 0, "itemPerPage": 500, "sortBy": "startDate", "sortDirection": -1}}
         r = requests.post(api, json=payload, headers={**UA, "Content-Type": "application/json"}, timeout=60)
         r.raise_for_status()
         for it in r.json().get("data", {}).get("list", []):
@@ -307,7 +359,7 @@ def main():
         seen.add(key)
         kept.append(r)
     kept.sort(key=lambda r: (r.get("posted") or ""), reverse=True)
-    json.dump({"generated": dt.datetime.utcnow().isoformat(timespec="seconds") + "Z", "count": len(kept), "jobs": kept},
+    json.dump({"generated": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"), "count": len(kept), "jobs": kept},
               open("feed.json", "w"), ensure_ascii=False, indent=1)
     print("kept", len(kept), file=sys.stderr)
 
