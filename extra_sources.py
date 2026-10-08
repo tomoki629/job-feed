@@ -25,6 +25,18 @@ POST_LABEL = r"(?:Posted on|Posted|Published on|Published|Date posted|Posting da
 LOC_LABEL = r"(?:Location|Locations|Duty station|Duty Station|Based in|Office|Place of work|勤務地)"
 
 
+TOPICAL = re.compile(r"(humanitarian|development|social|livelihood|employment|labour|labor|decent work|policy|partnership|sustainab|esg|human rights|resilien|crisis|disaster|emergency|refugee|displace|migration|protection|inclusion|grant|philanthrop|programme|program\b|programs|impact|advocacy|governance|economist|economic|research fellow|lecturer|professor|fellow|peace|conflict|fragil|recovery|resource mobili|fundrais|donor|foundation|country director|regional director|head of|chief of|deputy director|director|coordinator|safeguard|just transition|supply chain|due diligence|csr|responsib|climate|gender|youth|skills|enterprise|entrepreneur|cash|nexus|public works|infrastructure|international|global|asia|pacific|myanmar|thailand|africa|middle east|government affairs|public affairs|public policy|external relations|stakeholder|strategy|portfolio|operations director|managing director|executive director|chief executive|secretary general|国際|人道|開発|政策)", re.I)
+NOISE = re.compile(r"\b(engineer|engineering|software|developer|data (?:scientist|engineer|analyst)|machine learning|AI |cyber|IT |ICT|devops|cloud|accountant|accounting|receivable|payable|bookkeep|nurse|nursing|clinical|biostat|epidemiolog|laborator|semiconductor|chemist|physic|pharma|sales|marketing|tax|audit|legal counsel|paralegal|intern\b|internship|trainee|graduate programme|apprentice|driver|cleaner|security guard|receptionist|secretary|executive assistant|administrative assistant|customer|retail|warehouse|logistics (?:officer|assistant)|mechanic|electrician|architect|surveyor|quantity|design(?:er)?\b|UX|product manager|brand|ecommerce|e-commerce|supply chain analyst|procurement (?:officer|assistant)|payroll|recruiter|talent acquisition|HR (?:officer|assistant|business)|people operations)\b", re.I)
+
+
+def topical(rec):
+    """Stricter relevance for the broad sources: the title must be on topic and not a technical or support role."""
+    title = rec.get("title", "")
+    if NOISE.search(title) and not re.search(r"(director|head of|chief|senior manager|lead)", title, re.I):
+        return False
+    return bool(TOPICAL.search(title))
+
+
 def log(*a):
     print("DEBUG", *a, file=sys.stderr)
 
@@ -72,10 +84,15 @@ def page_text(html):
     return re.sub(r"\s+", " ", soup.get_text(" ")).strip()
 
 
+MDY_SOURCES = {"World Bank", "Workday: Gates Foundation", "Greenhouse: Human Rights Watch"}
+
+
 def parse_detail(text, rec, seen):
     """Fill posted, closing, location, grade, eligibility and summary from a detail page's text."""
     f = fx()
     t = clean_ordinals(text)
+    if rec.get("source") in MDY_SOURCES or "Eastern Time" in t:
+        t = re.sub(r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b", lambda m: f"{m.group(3)}-{int(m.group(1)):02d}-{int(m.group(2)):02d}", t)
     rec["closing"] = rec.get("closing") or f.find_date(CLOSE_LABEL, t)
     rec["posted"] = rec.get("posted") or f.find_date(POST_LABEL, t)
     if not rec.get("location"):
@@ -475,7 +492,7 @@ def generic(seen):
         recs = []
         for href, text in uniq:
             rec = mk(name, text, href, org=org)
-            if not f.relevant(rec):
+            if not f.relevant(rec) or not topical(rec):
                 continue
             recs.append(rec)
         fetched = 0
@@ -525,6 +542,9 @@ def all_extra():
         out.extend(got)
     except Exception as e:
         log("generic failed", e)
+    before = len(out)
+    out = [r for r in out if topical(r)]
+    log("topical filter kept", len(out), "of", before)
     for rec in out:
         if not rec.get("posted") and not rec.get("closing"):
             rec["posted"] = first_seen(seen, rec["url"])
