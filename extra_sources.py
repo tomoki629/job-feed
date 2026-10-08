@@ -125,21 +125,66 @@ WORKDAY = [
     ("unilever", "wd3", "Unilever", "Unilever"),
     ("mckinsey", "wd1", "McKinsey", "McKinsey"),
     ("bcg", "wd1", "BCG", "BCG"),
+    ("oecd", "wd3", "External", "OECD"),
+    ("icrc", "wd3", "External", "ICRC"),
+    ("adb", "wd3", "External", "Asian Development Bank"),
+    ("ebrd", "wd3", "External", "EBRD"),
+    ("savethechildren", "wd3", "External", "Save the Children"),
+    ("mercycorps", "wd1", "External", "Mercy Corps"),
+    ("oxfam", "wd3", "External", "Oxfam"),
+    ("irc", "wd5", "External", "International Rescue Committee"),
+    ("nrc", "wd3", "External", "Norwegian Refugee Council"),
+    ("drc", "wd3", "External", "Danish Refugee Council"),
+    ("plan", "wd3", "External", "Plan International"),
+    ("unilever", "wd3", "External", "Unilever"),
+    ("nestle", "wd3", "External", "Nestle"),
+    ("hm", "wd3", "External", "H&M Group"),
+    ("ikea", "wd3", "External", "IKEA"),
+    ("ingka", "wd3", "External", "Ingka Group (IKEA)"),
+    ("maersk", "wd3", "External", "Maersk"),
+    ("novonordisk", "wd3", "External", "Novo Nordisk"),
+    ("sony", "wd1", "External", "Sony"),
+    ("toyota", "wd3", "External", "Toyota"),
+    ("hitachi", "wd3", "External", "Hitachi"),
+    ("standardchartered", "wd3", "External", "Standard Chartered"),
+    ("hsbc", "wd3", "External", "HSBC"),
+    ("thomsonreuters", "wd3", "External", "Thomson Reuters Foundation / Thomson Reuters"),
 ]
+
+
+def discover_workday_sites(s, base):
+    """Find a tenant's career site names from the redirect of the bare host and from its HTML."""
+    names = []
+    try:
+        r = s.get(base + "/", timeout=30, allow_redirects=True)
+        m = re.search(r"myworkdayjobs\.com/(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_\-]+)", r.url)
+        if m:
+            names.append(m.group(1))
+        for m in re.finditer(r"myworkdayjobs\.com/(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_\-]+)", r.text):
+            if m.group(1) not in names and m.group(1) not in ("wday", "en-US"):
+                names.append(m.group(1))
+    except Exception as e:
+        log("workday discover failed", base, e)
+    return names[:4]
 
 
 def workday():
     out = []
     for tenant, wd, site, org in WORKDAY:
         base = f"https://{tenant}.{wd}.myworkdayjobs.com"
-        api = f"{base}/wday/cxs/{tenant}/{site}/jobs"
         try:
             s = requests.Session()
             s.headers.update(UA)
-            s.get(f"{base}/{site}", timeout=30)
-            r = s.post(api, json={"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": ""}, timeout=40)
-            if r.status_code != 200:
-                log("workday", tenant, r.status_code)
+            r = None
+            for cand in [site] + discover_workday_sites(s, base):
+                api = f"{base}/wday/cxs/{tenant}/{cand}/jobs"
+                s.get(f"{base}/{cand}", timeout=30)
+                r = s.post(api, json={"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": ""}, timeout=40)
+                if r.status_code == 200:
+                    site = cand
+                    break
+                log("workday", tenant, cand, r.status_code)
+            if r is None or r.status_code != 200:
                 continue
             data = r.json()
             total = data.get("total", 0)
@@ -385,15 +430,34 @@ def generic(seen):
     pw = sync_playwright().start() if sync_playwright else None
     browser = pw.chromium.launch(headless=True) if pw else None
     ctx = browser.new_context(user_agent=UA["User-Agent"], viewport={"width": 1280, "height": 900}, locale="en-US") if browser else None
-    page = ctx.new_page() if ctx else None
+    page = None
     for name, org, urls, link_re, use_browser, max_details in GENERIC:
         links = []
+        if ctx is not None:
+            try:
+                if page is not None:
+                    page.close()
+            except Exception:
+                pass
+            page = ctx.new_page()
         for u in urls:
             try:
                 if use_browser and page is not None:
-                    page.goto(u, wait_until="domcontentloaded", timeout=60000)
-                    page.wait_for_timeout(3500)
-                    links += collect_links(None, u, link_re, browser_page=page)
+                    try:
+                        page.goto(u, wait_until="domcontentloaded", timeout=60000)
+                    except Exception as e:
+                        if "interrupted by another navigation" not in str(e):
+                            raise
+                    page.wait_for_timeout(4000)
+                    got = collect_links(None, u, link_re, browser_page=page)
+                    if not got:
+                        hrefs = []
+                        for a in page.query_selector_all("a[href]")[:400]:
+                            h = a.get_attribute("href") or ""
+                            if re.search(r"job|vacanc|career|position|opportunit|recruit", h, re.I):
+                                hrefs.append(h)
+                        log("generic", name, "no links; title", repr(page.title())[:80], "url", page.url[:100], "sample", hrefs[:6])
+                    links += got
                 else:
                     r = get(u)
                     if r.status_code != 200:
