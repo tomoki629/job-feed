@@ -18,6 +18,8 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
+import extra_sources
+
 TODAY = dt.date.today()
 MAX_AGE_DAYS = 45
 UA = {"User-Agent": "Mozilla/5.0 (compatible; job-feed/1.0; +https://github.com/tomoki629/job-feed)"}
@@ -30,6 +32,11 @@ KEYWORDS = [
     "specialist", "economic inclusion", "social development", "safeguard", "fragil", "peace",
     "infrastructure", "public works", "skills", "enterprise", "nexus", "migration", "protection",
     "chief", "director", "manager", "officer", "analyst", "fellow", "researcher",
+    "sustainab", "esg", "human rights", "social impact", "social responsibility", "csr", "philanthrop",
+    "grants", "foundation", "lecturer", "professor", "research", "doctoral", "phd", "postdoc",
+    "development", "international", "economist", "advocacy", "strategy", "head,", "lead", "senior",
+    "inclusion", "gender", "governance", "climate", "just transition", "supply chain", "due diligence",
+    "東南アジア", "国際協力", "人道", "開発", "政策", "マネージャー", "ディレクター",
 ]
 JUNIOR = re.compile(r"\b(intern|internship|volunteer|UNV\b|junior|assistant|driver|clerk|secretary|G[1-7]\b|GS-?[1-7]\b|P-?[12]\b|NO-?[AB]\b|SB-?[1-3]\b)", re.I)
 
@@ -509,7 +516,7 @@ def uncareers():
 
 def main():
     records = []
-    for fn in (reliefweb, unjobs, unjobnet, ilo, undp, uncareers):
+    for fn in (reliefweb, unjobs, unjobnet, ilo, undp, uncareers, extra_sources.all_extra):
         try:
             got = fn()
             print(fn.__name__, len(got), file=sys.stderr)
