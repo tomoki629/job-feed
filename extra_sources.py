@@ -108,9 +108,6 @@ def parse_detail(text, rec, seen):
     m = re.search(r"(\d{1,2})\+?\s*(?:to\s*\d{1,2}\s*)?years?(?:'| of)?\s+(?:relevant |professional |progressively responsible |work |related )*experience", t, re.I)
     if m:
         rec["experience_years"] = int(m.group(1))
-    if not rec.get("posted") and not rec.get("closing"):
-        rec["posted"] = first_seen(seen, rec["url"])
-        rec["dated_by"] = "first seen"
     start = t.find(rec["title"]) if rec.get("title") else -1
     rec["summary"] = (t[start:] if start >= 0 else t)[:500]
     return rec
@@ -437,24 +434,54 @@ def collect_links(html_or_page, base, link_re, browser_page=None):
 
 
 def generic(seen):
+    """Run every GENERIC source in its own subprocess so a hung browser page can never stall the job."""
+    import subprocess
+    out = []
+    t_all = time.time()
+    for entry in GENERIC:
+        name = entry[0]
+        if time.time() - t_all > 32 * 60:
+            log("generic budget exhausted before", name)
+            break
+        try:
+            r = subprocess.run([sys.executable, os.path.abspath(__file__), "--one", name], capture_output=True, text=True, timeout=300)
+            sys.stderr.write(r.stderr[-4000:])
+            lines = [l for l in r.stdout.splitlines() if l.startswith("[")]
+            got = json.loads(lines[-1]) if lines else []
+        except subprocess.TimeoutExpired as e:
+            sys.stderr.write((e.stderr or b"").decode(errors="replace")[-2000:] if isinstance(e.stderr, bytes) else str(e.stderr or "")[-2000:])
+            log("generic", name, "killed after 300 s")
+            got = []
+        except Exception as e:
+            log("generic", name, "subprocess failed", str(e)[:200])
+            got = []
+        out.extend(got)
+    return out
+
+
+def generic_one(name):
+    """Read one GENERIC source (runs inside the subprocess) and print its records as JSON."""
     out = []
     f = fx()
+    entries = [e for e in GENERIC if e[0] == name]
     try:
         from playwright.sync_api import sync_playwright
     except Exception as e:
         log("generic: playwright unavailable", e)
         sync_playwright = None
-    pw = sync_playwright().start() if sync_playwright else None
-    browser = pw.chromium.launch(headless=True) if pw else None
-    ctx = browser.new_context(user_agent=UA["User-Agent"], viewport={"width": 1280, "height": 900}, locale="en-US") if browser else None
+    pw = browser = ctx = None
+    try:
+        if sync_playwright:
+            pw = sync_playwright().start()
+            browser = pw.chromium.launch(headless=True)
+            ctx = browser.new_context(user_agent=UA["User-Agent"], viewport={"width": 1280, "height": 900}, locale="en-US")
+    except Exception as e:
+        log("generic: browser launch failed", str(e)[:200])
+        ctx = None
     page = None
-    t_all = time.time()
-    for name, org, urls, link_re, use_browser, max_details in GENERIC:
+    for name, org, urls, link_re, use_browser, max_details in entries:
         links = []
         t_src = time.time()
-        if time.time() - t_all > 30 * 60:
-            log("generic budget exhausted before", name)
-            break
         if ctx is not None:
             try:
                 if page is not None:
@@ -476,11 +503,14 @@ def generic(seen):
                     got = collect_links(None, u, link_re, browser_page=page)
                     if not got:
                         hrefs = []
-                        for a in page.query_selector_all("a[href]")[:400]:
-                            h = a.get_attribute("href") or ""
-                            if re.search(r"job|vacanc|career|position|opportunit|recruit", h, re.I):
-                                hrefs.append(h)
-                        log("generic", name, "no links; title", repr(page.title())[:80], "url", page.url[:100], "sample", hrefs[:6])
+                        try:
+                            for a in page.query_selector_all("a[href]")[:400]:
+                                h = a.get_attribute("href") or ""
+                                if re.search(r"job|vacanc|career|position|opportunit|recruit", h, re.I):
+                                    hrefs.append(h)
+                            log("generic", name, "no links; title", repr(page.title())[:80], "url", page.url[:100], "sample", hrefs[:6])
+                        except Exception as e:
+                            log("generic", name, "no links; diagnostics failed", str(e)[:80])
                     links += got
                 else:
                     r = get(u)
@@ -519,18 +549,28 @@ def generic(seen):
                     if r.status_code != 200:
                         continue
                     t = page_text(r.text)
-                parse_detail(t, rec, seen)
+                parse_detail(t, rec, {})
                 fetched += 1
             except Exception as e:
                 log("generic", name, "detail failed", rec["url"][:80], str(e)[:80])
-        kept = [r for r in recs if r.get("posted") or r.get("closing")]
-        log("generic", name, "relevant", len(recs), "detailed", fetched, "dated", len(kept))
+        kept = [r for r in recs if r.get("posted") or r.get("closing") or r.get("summary")]
+        log("generic", name, "relevant", len(recs), "detailed", fetched, "kept", len(kept))
         out.extend(kept)
-    if browser:
-        browser.close()
-    if pw:
-        pw.stop()
-    return out
+    try:
+        if browser:
+            browser.close()
+        if pw:
+            pw.stop()
+    except Exception:
+        pass
+    print(json.dumps(out, ensure_ascii=False))
+    sys.stdout.flush()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) >= 3 and sys.argv[1] == "--one":
+        generic_one(sys.argv[2])
+        os._exit(0)
 
 
 def all_extra():
