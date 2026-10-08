@@ -193,7 +193,7 @@ def workday():
             s = requests.Session()
             s.headers.update(UA)
             r = None
-            for cand in [site] + discover_workday_sites(s, base):
+            for cand in ([site] + discover_workday_sites(s, base))[:4]:
                 api = f"{base}/wday/cxs/{tenant}/{cand}/jobs"
                 s.get(f"{base}/{cand}", timeout=30)
                 r = s.post(api, json={"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": ""}, timeout=40)
@@ -448,8 +448,13 @@ def generic(seen):
     browser = pw.chromium.launch(headless=True) if pw else None
     ctx = browser.new_context(user_agent=UA["User-Agent"], viewport={"width": 1280, "height": 900}, locale="en-US") if browser else None
     page = None
+    t_all = time.time()
     for name, org, urls, link_re, use_browser, max_details in GENERIC:
         links = []
+        t_src = time.time()
+        if time.time() - t_all > 30 * 60:
+            log("generic budget exhausted before", name)
+            break
         if ctx is not None:
             try:
                 if page is not None:
@@ -457,11 +462,13 @@ def generic(seen):
             except Exception:
                 pass
             page = ctx.new_page()
+            page.set_default_timeout(30000)
+            page.set_default_navigation_timeout(45000)
         for u in urls:
             try:
                 if use_browser and page is not None:
                     try:
-                        page.goto(u, wait_until="domcontentloaded", timeout=60000)
+                        page.goto(u, wait_until="domcontentloaded", timeout=45000)
                     except Exception as e:
                         if "interrupted by another navigation" not in str(e):
                             raise
@@ -497,11 +504,11 @@ def generic(seen):
             recs.append(rec)
         fetched = 0
         for rec in recs:
-            if fetched >= max_details:
+            if fetched >= max_details or time.time() - t_src > 240:
                 break
             try:
                 if use_browser and page is not None:
-                    page.goto(rec["url"], wait_until="domcontentloaded", timeout=60000)
+                    page.goto(rec["url"], wait_until="domcontentloaded", timeout=45000)
                     page.wait_for_timeout(2000)
                     t = re.sub(r"\s+", " ", page.inner_text("body"))
                     if not rec["org"]:
