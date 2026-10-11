@@ -295,13 +295,16 @@ def lever():
 
 # ------------------------------------------------------------------ LinkedIn public listings
 LINKEDIN_QUERIES = [
-    ("humanitarian director", "Bangkok, Thailand"), ("social protection", "Bangkok, Thailand"),
-    ("sustainability partnerships director", "Bangkok, Thailand"), ("development policy", "Geneva, Switzerland"),
-    ("humanitarian partnerships", "Switzerland"), ("ESG human rights supply chain", "Singapore"),
-    ("resilience livelihoods program director", "Asia"), ("corporate social responsibility director", "Tokyo, Japan"),
-    ("international development senior manager", "London, United Kingdom"), ("social impact director", "Paris, France"),
-    ("labour rights", "Europe"), ("foundation program director", "Europe"), ("disaster risk", "Asia"),
-    ("economic inclusion refugees", "Europe"), ("policy advisor crisis", "Brussels, Belgium"),
+    ("sustainability director", "Bangkok, Thailand"), ("head of sustainability", "Singapore"),
+    ("ESG director", "Bangkok, Thailand"), ("human rights supply chain", "Singapore"),
+    ("responsible sourcing director", "Asia"), ("social impact director", "Singapore"),
+    ("corporate foundation director", "Asia"), ("CSR director", "Tokyo, Japan"),
+    ("サステナビリティ 部長", "Tokyo, Japan"), ("head of social impact", "London, United Kingdom"),
+    ("foundation program director", "Europe"), ("philanthropy director", "Switzerland"),
+    ("impact investing director", "Singapore"), ("social enterprise director", "Asia"),
+    ("just transition", "Europe"), ("climate resilience director", "Asia"),
+    ("humanitarian partnerships", "Switzerland"), ("disaster risk finance", "Asia"),
+    ("AI for social good", "Europe"), ("public policy director sustainability", "Brussels, Belgium"),
 ]
 
 
